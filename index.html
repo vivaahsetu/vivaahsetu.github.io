@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivaah Setu - Essential Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, sans-serif;
+        }
+        
+        :root {
+            --mac-blue: #0071e3;
+            --mac-gray: #f5f5f7;
+            --mac-dark: #1d1d1f;
+            --mac-card: #ffffff;
+            --mac-border: #d2d2d7;
+            --mac-accent: #bf4800;
+            --mac-purple: #8e44ad;
+            --notice-panel: #f8f9fa;
+            --success: #25d366;
+            --error: #e1306c;
+            --services-color: #3498db;
+        }
+        
+        body {
+            background-color: var(--mac-gray);
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 80px;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Welcome Popup */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .popup-content {
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            text-align: center;
+            max-width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            animation: popup-appear 0.5s ease-out;
+        }
+        
+        @keyframes popup-appear {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .popup-content h2 {
+            color: var(--mac-blue);
+            margin-bottom: 15px;
+        }
+        
+        .popup-btn {
+            background: var(--mac-blue);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .popup-btn:hover {
+            background: #0056b3;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--mac-dark), #333);
+            color: white;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: #ff4d6d;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .logo h1 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .profile-count {
+            background: var(--mac-accent);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* Notice Panel - Bottom Sheet Style */
+        .notice-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--mac-blue);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 90;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            animation: bell-ring 5s infinite;
+        }
+        
+        @keyframes bell-ring {
+            0% { transform: rotate(0); }
+            2% { transform: rotate(15deg); }
+            4% { transform: rotate(-15deg); }
+            6% { transform: rotate(15deg); }
+            8% { transform: rotate(-15deg); }
+            10% { transform: rotate(0); }
+            100% { transform: rotate(0); }
+        }
+        
+        .notice-btn:hover {
+            background: #0056b3;
+            transform: scale(1.1);
+            animation: none;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--error);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .notice-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+        
+        .notice-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .notice-panel {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            height: 65vh;
+            max-height: 600px;
+            background: var(--notice-panel);
+            z-index: 100;
+            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow-y: auto;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .notice-panel.open {
+            bottom: 0;
+        }
+        
+        .notice-header {
+            background: var(--mac-dark);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        
+        .notice-header h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .close-notice {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            padding: 10px;
+        }
+        
+        .close-notice:hover {
+            transform: rotate(90deg);
+        }
+        
+        .notice-content {
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .notice-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid var(--mac-border);
+            transition: transform 0.2s ease;
+        }
+        
+        .notice-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .notice-item h3 {
+            color: var(--mac-blue);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .notice-item h3 i {
+            font-size: 1.2rem;
+            color: var(--mac-purple);
+        }
+        
+        .notice-item p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        
+        .notice-date {
+            font-size: 0.85rem;
+            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Filter Section */
+        .filter-section {
+            background: var(--mac-card);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid var(--mac-border);
+            animation: slideIn 0.4s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .filter-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--mac-dark);
+        }
+        
+        .filter-title i {
+            color: var(--mac-blue);
+        }
+        
+        .filter-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .filter-group label {
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        select, input {
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid var(--mac-border);
+            background: white;
+            font-size: 0.9rem;
+            transition: border-color 0.3s;
+        }
+        
+        select:focus, input:focus {
+            border-color: var(--mac-blue);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.2);
+        }
+        
+        .search-btn {
+            grid-column: span 2;
+            background: var(--mac-blue);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .search-btn:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+        
+        /* Error Message */
+        .error-message {
+            background-color: #ffebee;
+            color: var(--error);
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            display: none;
+            grid-column: span 2;
+        }
+        
+        /* Profiles Section */
+        .profiles-section {
+            margin-top: 10px;
+        }
+        
+        .section-title {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--mac-dark);
+        }
+        
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .profile-card {
+            background: var(--mac-card);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid var(--mac-border);
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        .profile-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--mac-purple);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+        
+        .profile-img {
+            height: 200px;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+        }
+        
+        .profile-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: linear-gradient(to top, rgba(255,255,255,0.5), transparent);
+        }
+        
+        .profile-info {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .profile-name {
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--mac-dark);
+            font-size: 1.1rem;
+        }
+        
+        .profile-detail {
+            font-size: 0.85rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 3px;
+        }
+        
+        .call-btn {
+            width: 100%;
+            padding: 10px;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-weight: 500;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .call-btn:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+        }
+        
+        /* Profile Detail Modal */
+        .profile-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            overflow-y: auto;
+        }
+        
+        .profile-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: modal-appear 0.4s ease-out;
+        }
+        
+        @keyframes modal-appear {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        
+        .close-modal:hover {
+            background: rgba(0,0,0,0.2);
+            transform: rotate(90deg);
+        }
+        
+        .modal-header {
+            background: linear-gradient(45deg, var(--mac-blue), #5d9bff);
+            padding: 30px 30px 50px;
+            color: white;
+            position: relative;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .modal-profile-img {
+            position: absolute;
+            bottom: -50px;
+            left: 50px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            color: white;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .modal-header-content {
+            margin-left: 160px;
+            padding-top: 20px;
+        }
+        
+        .modal-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .modal-tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .modal-contact {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .contact-btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .contact-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+        }
+        
+        .modal-body {
+            padding: 40px 30px 30px;
+        }
+        
+        .modal-section {
+            margin-bottom: 30px;
+        }
+        
+        .modal-section h3 {
+            color: var(--mac-blue);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--mac-border);
+        }
+        
+        .modal-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .modal-detail {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .detail-label {
+            min-width: 120px;
+            font-weight: 600;
+            color: var(--mac-dark);
+        }
+        
+        .detail-value {
+            color: #555;
+        }
+        
+        /* Floating Action Button */
+        .fab-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+        }
+        
+        .fab-main {
+            width: 60px;
+            height: 60px;
+            background: var(--mac-blue);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .fab-main:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            animation: none;
+        }
+        
+        .fab-buttons {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+        
+        .fab-buttons.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .fab-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            text-decoration: none;
+        }
+        
+        .fab-button:hover {
+            transform: translateY(-3px);
+        }
+        
+        .fab-button::after {
+            content: attr(title);
+            position: absolute;
+            right: 60px;
+            white-space: nowrap;
+            background: var(--mac-dark);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        
+        .fab-button:hover::after {
+            opacity: 1;
+        }
+        
+        .fab-button:nth-child(1) { background: #ff4d6d; } /* Add Profile */
+        .fab-button:nth-child(2) { background: var(--mac-purple); } /* Kundli */
+        .fab-button:nth-child(3) { background: #e1306c; } /* Instagram */
+        .fab-button:nth-child(4) { background: var(--services-color); } /* Other Services */
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 30px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .modal-header-content {
+                margin-left: 0;
+                margin-top: 100px;
+                text-align: center;
+            }
+            
+            .modal-profile-img {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .modal-contact {
+                justify-content: center;
+            }
+            
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-btn {
+                grid-column: span 1;
+            }
+            
+            .notice-panel {
+                height: 70vh;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .profiles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+            
+            .profile-count {
+                font-size: 0.8rem;
+            }
+            
+            .modal-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .notice-btn {
+                bottom: 80px;
+                left: 15px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            
+            .notice-panel {
+                height: 75vh;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .profiles-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        /* Loading Spinner */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            grid-column: span 2;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--mac-blue);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Popup -->
+    <div class="popup-overlay" id="welcomePopup">
+        <div class="popup-content">
+            <h2>Welcome to Vivaah Setu!</h2>
+            <p>This is a <strong>Free Service</strong> to help you find your perfect life partner</p>
+            <button class="popup-btn" id="enterSite">Enter Site</button>
+        </div>
+    </div>
+    
+    <!-- Notice Panel -->
+    <div class="notice-btn" id="noticeBtn">
+        <i class="fas fa-bell"></i>
+        <div class="notification-badge">3</div>
+    </div>
+    
+    <!-- Notice Overlay -->
+    <div class="notice-overlay" id="noticeOverlay"></div>
+    
+    <div class="notice-panel" id="noticePanel">
+        <div class="notice-header">
+            <h2><i class="fas fa-bullhorn"></i> Important Notices</h2>
+            <button class="close-notice" id="closeNotice">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="notice-content">
+            <div class="notice-item">
+                <h3><i class="fas fa-star"></i> New Feature: Kundli Matching</h3>
+                <p>We've added a new kundli matching feature to help you find astrologically compatible partners. This premium feature analyzes both partners' birth charts for compatibility.</p>
+                <div class="notice-date"><i class="fas fa-calendar"></i> June 15, 2023</div>
+            </div>
+            <div class="notice-item">
+                <h3><i class="fas fa-shield-alt"></i> Profile Verification</h3>
+                <p>All profiles are now manually verified to ensure authenticity and safety for our users. Look for the verified badge on profiles that have completed the verification process.</p>
+                <div class="notice-date"><i class="fas fa-calendar"></i> June 5, 2023</div>
+            </div>
+            <div class="notice-item">
+                <h3><i class="fas fa-crown"></i> Premium Membership</h3>
+                <p>Introducing premium membership with advanced search filters, priority support, and unlimited messaging. Upgrade today to enhance your matchmaking experience.</p>
+                <div class="notice-date"><i class="fas fa-calendar"></i> May 28, 2024</div>
+            </div>
+            <div class="notice-item">
+                <h3><i class="fas fa-lock"></i> Safety Guidelines</h3>
+                <p>Please review our new safety guidelines to protect your personal information. We recommend never sharing financial details with anyone through our platform.</p>
+                <div class="notice-date"><i class="fas fa-calendar"></i> May 20, 2024</div>
+            </div>
+            <div class="notice-item">
+                <h3><i class="fas fa-users"></i> Community Events</h3>
+                <p>Join our upcoming community meetups in major cities to meet potential matches in person. Events will be held in Delhi, Mumbai, Bangalore, and Hyderabad.</p>
+                <div class="notice-date"><i class="fas fa-calendar"></i> May 15, 2024</div>
+            </div>
+            <div class="notice-item">
+                <h3><i class="fas fa-mobile-alt"></i> Mobile App Launch</h3>
+                <p>Our mobile app is now available on both iOS and Android platforms. Download it today for a better user experience with push notifications for new matches.</p>
+                <div class="notice-date"><i class="fas fa-calendar"></i> May 10, 2024</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-heart"></i>
+            <h1>Vivaah Setu</h1>
+        </div>
+        <div class="profile-count">
+            <i class="fas fa-users"></i> <span id="profileCounter">128</span> Profiles
+        </div>
+    </header>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Filter Section -->
+        <section class="filter-section">
+            <div class="filter-title">
+                <i class="fas fa-filter"></i>
+                <h3>Find Your Perfect Match</h3>
+            </div>
+            
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label for="searchFor">Search For</label>
+                    <select id="searchFor">
+                        <option value="any">Bride or Groom</option>
+                        <option value="bride">Bride</option>
+                        <option value="groom">Groom</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="yearFrom">Year From</label>
+                    <select id="yearFrom">
+                        <option value="any">Any Year</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="yearTo">Year To</label>
+                    <select id="yearTo">
+                        <option value="any">Any Year</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="maritalStatus">Marital Status</label>
+                    <select id="maritalStatus">
+                        <option value="any">Any Status</option>
+                        <option value="never">Never Married</option>
+                        <option value="divorced">Divorced</option>
+                        <option value="widowed">Widowed</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="manglik">Manglik Status</label>
+                    <select id="manglik">
+                        <option value="any">Doesn't matter</option>
+                        <option value="manglik">Manglik</option>
+                        <option value="non-manglik">Non-Manglik</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="employment">Employment</label>
+                    <select id="employment">
+                        <option value="any">Any Employment</option>
+                        <option value="private">Private</option>
+                        <option value="government">Government</option>
+                        <option value="business">Business</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="nationality">Nationality</label>
+                    <select id="nationality">
+                        <option value="any">Any Nationality</option>
+                        <option value="indian">Indian</option>
+                        <option value="nri">NRI</option>
+                    </select>
+                </div>
+                
+                <!-- Caste Filter -->
+                <div class="filter-group">
+                    <label for="caste">Caste</label>
+                    <select id="caste">
+                        <option value="any">Any Caste</option>
+                        <option value="brahmin">Brahmin</option>
+                        <option value="rajput">Rajput</option>
+                        <option value="jat">Jat</option>
+                        <option value="yadav">Yadav</option>
+                        <option value="bania">Bania</option>
+                        <option value="kayastha">Kayastha</option>
+                        <option value="khatri">Khatri</option>
+                        <option value="gujjar">Gujjar</option>
+                        <option value="kurmi">Kurmi</option>
+                        <option value="maratha">Maratha</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="error-message" id="filterError">
+                    <i class="fas fa-exclamation-circle"></i> Please select valid filter options
+                </div>
+                
+                <div class="loading" id="loadingSpinner">
+                    <div class="spinner"></div>
+                    <p>Searching profiles...</p>
+                </div>
+                
+                <button class="search-btn" id="searchBtn">
+                    <i class="fas fa-search"></i> Search Profiles
+                </button>
+            </div>
+        </section>
+        
+        <!-- Profiles Section -->
+        <section class="profiles-section">
+            <div class="section-title">
+                <i class="fas fa-user-friends"></i>
+                <h3>Featured Profiles</h3>
+            </div>
+            
+            <div class="profiles-grid" id="profilesContainer">
+                <!-- Profile cards will be generated by JavaScript -->
+            </div>
+        </section>
+    </div>
+    
+    <!-- Profile Detail Modal -->
+    <div class="profile-modal" id="profileModal">
+        <div class="modal-content" id="modalContent">
+            <!-- Modal content will be generated by JavaScript -->
+        </div>
+    </div>
+    
+    <!-- Floating Action Button -->
+    <div class="fab-container">
+        <div class="fab-buttons" id="fabButtons">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSftHd4meM_L3Dn2ZPmONqz4GzzTu8DszjVv6essh8F679tVXA/viewform?usp=header" target="_blank" class="fab-button" title="Add Your Profile">
+                <i class="fas fa-plus"></i>
+            </a>
+            <a href="https://www.astrosage.com/kundli/" target="_blank" class="fab-button" title="Kundli Match">
+                <i class="fas fa-star-and-crescent"></i>
+            </a>
+            <a href="https://www.instagram.com/jasrotiaravi?igsh=MTAxMG1hOWN2YW1ucw==" target="_blank" class="fab-button" title="Follow on Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="services.html" class="fab-button" title="Other Essential Services">
+                <i class="fas fa-concierge-bell"></i>
+            </a>
+        </div>
+        
+        <div class="fab-main" id="fabMain">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <p>Vivaah Setu &copy; 2023 | Connecting Hearts, Building Families</p>
+        <p>This is a free matrimonial service</p>
+    </footer>
+    
+    <script>
+        // Enhanced profile data with caste and gender information
+        const profiles = [
+            {id: 1,name: "Aarav Sharma",dob: "1990-05-15",gender: "M",location: "Mumbai, India",occupation: "Software Engineer",education: "M.Tech Computer Science",manglik: "Non-Manglik",employment: "Private",nationality: "Indian",caste: "Brahmin",maritalStatus: "Never Married",phone: "+919876543210",about: "Seeking a well-educated, family-oriented partner who values traditions. I enjoy traveling and exploring new cultures.",family: "Nuclear family, father retired from government service, mother homemaker, one sister married",status: "New"},
+            
+            
+            
+            
+            
+            
+            {
+                id: 2,
+                name: "Priya Patel",
+                dob: "1993-11-22",
+                gender: "F",
+                location: "Ahmedabad, India",
+                occupation: "Marketing Manager",
+                education: "MBA Marketing",
+                manglik: "Non-Manglik",
+                employment: "Private",
+                nationality: "Indian",
+                caste: "Bania",
+                maritalStatus: "Never Married",
+                phone: "+919876543211",
+                about: "Looking for a caring and ambitious partner. I value honesty and good communication in a relationship.",
+                family: "Joint family, father runs a business, mother teacher, one younger brother",
+                status: "Verified"
+            },
+            {
+                id: 3,
+                name: "Raj Malhotra",
+                dob: "1988-03-10",
+                gender: "M",
+                location: "Delhi, India",
+                occupation: "Government Officer",
+                education: "MA Economics",
+                manglik: "Manglik",
+                employment: "Government",
+                nationality: "Indian",
+                caste: "Rajput",
+                maritalStatus: "Divorced",
+                phone: "+919876543212",
+                about: "Traditional yet modern outlook. Seeking a partner who respects family values and has a good sense of humor.",
+                family: "Father retired army officer, mother homemaker, one married sister",
+                status: "Premium"
+            },
+            {
+                id: 4,
+                name: "Ananya Reddy",
+                dob: "1995-07-18",
+                gender: "F",
+                location: "Hyderabad, India",
+                occupation: "Doctor",
+                education: "MBBS, MD",
+                manglik: "Non-Manglik",
+                employment: "Government",
+                nationality: "Indian",
+                caste: "Maratha",
+                maritalStatus: "Never Married",
+                phone: "+919876543213",
+                about: "Medical professional seeking an understanding partner who respects my career and shares similar values.",
+                family: "Nuclear family, both parents doctors, one younger brother studying",
+                status: "Verified"
+            },
+            {
+                id: 5,
+                name: "Vikram Singh",
+                dob: "1991-09-05",
+                gender: "M",
+                location: "California, USA",
+                occupation: "Business Owner",
+                education: "BBA, MBA",
+                manglik: "Non-Manglik",
+                employment: "Business",
+                nationality: "NRI",
+                caste: "Jat",
+                maritalStatus: "Never Married",
+                phone: "+14155552671",
+                about: "NRI settled in USA. Looking for a well-educated, culturally rooted partner to build a life together.",
+                family: "Parents in India, father retired, mother homemaker, one sister settled in Canada",
+                status: "New"
+            },
+            {
+                id: 6,
+                name: "Sneha Gupta",
+                dob: "1994-02-28",
+                gender: "F",
+                location: "Bangalore, India",
+                occupation: "Data Scientist",
+                education: "MSc Data Science",
+                manglik: "Manglik",
+                employment: "Private",
+                nationality: "Indian",
+                caste: "Khatri",
+                maritalStatus: "Widowed",
+                phone: "+919876543214",
+                about: "Tech professional seeking a partner who values both career and family. Enjoy cooking and hiking.",
+                family: "Nuclear family, father businessman, mother teacher, one elder brother married",
+                status: "Premium"
+            }
+        ];
+        
+        // DOM Elements
+        const welcomePopup = document.getElementById('welcomePopup');
+        const enterSiteBtn = document.getElementById('enterSite');
+        const profileCounter = document.getElementById('profileCounter');
+        const profilesContainer = document.getElementById('profilesContainer');
+        const fabMain = document.getElementById('fabMain');
+        const fabButtons = document.getElementById('fabButtons');
+        const searchBtn = document.getElementById('searchBtn');
+        const noticeBtn = document.getElementById('noticeBtn');
+        const noticePanel = document.getElementById('noticePanel');
+        const closeNotice = document.getElementById('closeNotice');
+        const noticeOverlay = document.getElementById('noticeOverlay');
+        const profileModal = document.getElementById('profileModal');
+        const modalContent = document.getElementById('modalContent');
+        const filterError = document.getElementById('filterError');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const yearFromSelect = document.getElementById('yearFrom');
+        const yearToSelect = document.getElementById('yearTo');
+        
+        // Function to format date as DD/MM/YYYY
+        function formatDOB(dobString) {
+            const date = new Date(dobString);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+        
+        // Initialize the page
+        function initPage() {
+            // Set profile count
+            profileCounter.textContent = profiles.length;
+            
+            // Generate profile cards
+            renderProfiles(profiles);
+            
+            // Populate year selects
+            populateYearSelects();
+        }
+        
+        // Populate year dropdowns
+        function populateYearSelects() {
+            const currentYear = new Date().getFullYear();
+            const startYear = 1950;
+            
+            for (let year = currentYear; year >= startYear; year--) {
+                const optionFrom = document.createElement('option');
+                optionFrom.value = year;
+                optionFrom.textContent = year;
+                yearFromSelect.appendChild(optionFrom);
+                
+                const optionTo = document.createElement('option');
+                optionTo.value = year;
+                optionTo.textContent = year;
+                yearToSelect.appendChild(optionTo);
+            }
+            
+            // Set default values
+            yearFromSelect.value = 1980;
+            yearToSelect.value = 2000;
+        }
+        
+        // Render profile cards
+        function renderProfiles(profilesToRender) {
+            const container = document.getElementById('profilesContainer');
+            container.innerHTML = '';
+            
+            if (profilesToRender.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #666;">
+                        <i class="fas fa-user-times" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                        <h3>No profiles found</h3>
+                        <p>Try adjusting your search filters</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            profilesToRender.forEach(profile => {
+                const profileCard = document.createElement('div');
+                profileCard.className = 'profile-card';
+                
+                // Status badge based on profile status
+                let badgeClass = '';
+                if (profile.status === "Verified") badgeClass = 'background: var(--success);';
+                if (profile.status === "Premium") badgeClass = 'background: var(--mac-purple);';
+                if (profile.status === "New") badgeClass = 'background: var(--mac-blue);';
+                
+                profileCard.innerHTML = `
+                    <div class="profile-badge" style="${badgeClass}">${profile.status}</div>
+                    <div class="profile-img">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="profile-info">
+                        <div class="profile-name">${profile.name}</div>
+                        <div class="profile-detail">
+                            <i class="fas fa-birthday-cake"></i> ${formatDOB(profile.dob)}
+                        </div>
+                        <div class="profile-detail">
+                            <i class="fas fa-map-marker-alt"></i> ${profile.location}
+                        </div>
+                        <div class="profile-detail">
+                            <i class="fas fa-user-tag"></i> ${profile.caste}
+                        </div>
+                        <div class="profile-detail">
+                            <i class="fas fa-heart"></i> ${profile.maritalStatus}
+                        </div>
+                        <button class="call-btn" onclick="callProfile('${profile.phone}')">
+                            <i class="fas fa-phone"></i> Call
+                        </button>
+                    </div>
+                `;
+                
+                // Add click event to show detailed profile view
+                profileCard.addEventListener('click', function() {
+                    showProfileModal(profile);
+                });
+                
+                container.appendChild(profileCard);
+            });
+        }
+        
+        // Filter profiles based on criteria
+        function filterProfiles() {
+            // Show loading spinner
+            loadingSpinner.style.display = 'block';
+            filterError.style.display = 'none';
+            
+            // Simulate network delay
+            setTimeout(() => {
+                const searchFor = document.getElementById('searchFor').value;
+                const yearFrom = document.getElementById('yearFrom').value;
+                const yearTo = document.getElementById('yearTo').value;
+                const maritalStatus = document.getElementById('maritalStatus').value;
+                const manglik = document.getElementById('manglik').value;
+                const employment = document.getElementById('employment').value;
+                const nationality = document.getElementById('nationality').value;
+                const caste = document.getElementById('caste').value;
+                
+                // Validate year range
+                if (yearFrom !== 'any' && yearTo !== 'any' && parseInt(yearFrom) > parseInt(yearTo)) {
+                    filterError.textContent = "Invalid year range. 'Year From' must be earlier than 'Year To'";
+                    filterError.style.display = 'block';
+                    loadingSpinner.style.display = 'none';
+                    return;
+                }
+                
+                const filtered = profiles.filter(profile => {
+                    // Get birth year from DOB
+                    const birthYear = new Date(profile.dob).getFullYear();
+                    
+                    // Determine gender for search
+                    let genderMatch = true;
+                    if (searchFor === 'bride') {
+                        genderMatch = profile.gender === 'F';
+                    } else if (searchFor === 'groom') {
+                        genderMatch = profile.gender === 'M';
+                    }
+                    
+                    // Map marital status values
+                    let maritalValue = "";
+                    switch(profile.maritalStatus) {
+                        case "Never Married": maritalValue = "never"; break;
+                        case "Divorced": maritalValue = "divorced"; break;
+                        case "Widowed": maritalValue = "widowed"; break;
+                    }
+                    
+                    // Check each filter condition
+                    return genderMatch &&
+                           (yearFrom === 'any' || birthYear >= parseInt(yearFrom)) &&
+                           (yearTo === 'any' || birthYear <= parseInt(yearTo)) &&
+                           (maritalStatus === 'any' || maritalValue === maritalStatus) &&
+                           (manglik === 'any' || profile.manglik.toLowerCase() === manglik.toLowerCase()) &&
+                           (employment === 'any' || profile.employment.toLowerCase() === employment.toLowerCase()) &&
+                           (nationality === 'any' || profile.nationality.toLowerCase() === nationality.toLowerCase()) &&
+                           (caste === 'any' || profile.caste.toLowerCase() === caste.toLowerCase());
+                });
+                
+                // Update profile counter
+                profileCounter.textContent = filtered.length;
+                
+                // Render filtered profiles
+                renderProfiles(filtered);
+                
+                // Hide loading spinner
+                loadingSpinner.style.display = 'none';
+            }, 800);
+        }
+        
+        // Show detailed profile modal
+        function showProfileModal(profile) {
+            // Generate modal content
+            modalContent.innerHTML = `
+                <div class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </div>
+                <div class="modal-header">
+                    <div class="modal-profile-img">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="modal-header-content">
+                        <h2 class="modal-name">${profile.name}</h2>
+                        <p class="modal-tagline">${profile.occupation} | ${profile.location}</p>
+                        <div class="modal-contact">
+                            <button class="contact-btn" onclick="callProfile('${profile.phone}')">
+                                <i class="fas fa-phone"></i> Call
+                            </button>
+                            <button class="contact-btn" onclick="alert('Message feature coming soon!')">
+                                <i class="fas fa-comment"></i> Message
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-section">
+                        <h3>Personal Details</h3>
+                        <div class="modal-details">
+                            <div class="modal-detail">
+                                <div class="detail-label">Date of Birth:</div>
+                                <div class="detail-value">${formatDOB(profile.dob)}</div>
+                            </div>
+                            <div class="modal-detail">
+                                <div class="detail-label">Marital Status:</div>
+                                <div class="detail-value">${profile.maritalStatus}</div>
+                            </div>
+                            <div class="modal-detail">
+                                <div class="detail-label">Manglik:</div>
+                                <div class="detail-value">${profile.manglik}</div>
+                            </div>
+                            <div class="modal-detail">
+                                <div class="detail-label">Nationality:</div>
+                                <div class="detail-value">${profile.nationality}</div>
+                            </div>
+                            <div class="modal-detail">
+                                <div class="detail-label">Caste:</div>
+                                <div class="detail-value">${profile.caste}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Education & Career</h3>
+                        <div class="modal-details">
+                            <div class="modal-detail">
+                                <div class="detail-label">Education:</div>
+                                <div class="detail-value">${profile.education}</div>
+                            </div>
+                            <div class="modal-detail">
+                                <div class="detail-label">Occupation:</div>
+                                <div class="detail-value">${profile.occupation}</div>
+                            </div>
+                            <div class="modal-detail">
+                                <div class="detail-label">Employment:</div>
+                                <div class="detail-value">${profile.employment}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>About Me</h3>
+                        <p>${profile.about}</p>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3>Family Details</h3>
+                        <p>${profile.family}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Show the modal
+            profileModal.classList.add('active');
+            
+            // Add event listener to close button
+            document.getElementById('closeModal').addEventListener('click', function() {
+                profileModal.classList.remove('active');
+            });
+        }
+        
+        // Call profile function
+        function callProfile(phone) {
+            if (confirm(`Call ${phone}?`)) {
+                // In a real app, this would initiate a phone call
+                alert(`Calling ${phone}...`);
+                // Actual implementation would be: window.location.href = `tel:${phone}`;
+            }
+        }
+        
+        // Event Listeners
+        enterSiteBtn.addEventListener('click', function() {
+            welcomePopup.style.display = 'none';
+        });
+        
+        fabMain.addEventListener('click', function() {
+            fabButtons.classList.toggle('show');
+        });
+        
+        searchBtn.addEventListener('click', filterProfiles);
+        
+        // Notice panel functionality
+        noticeBtn.addEventListener('click', function() {
+            noticePanel.classList.add('open');
+            noticeOverlay.classList.add('active');
+        });
+        
+        closeNotice.addEventListener('click', function() {
+            noticePanel.classList.remove('open');
+            noticeOverlay.classList.remove('active');
+        });
+        
+        noticeOverlay.addEventListener('click', function() {
+            noticePanel.classList.remove('open');
+            noticeOverlay.classList.remove('active');
+        });
+        
+        // Close FAB when clicking elsewhere
+        document.addEventListener('click', function(e) {
+            if (!fabMain.contains(e.target) && !fabButtons.contains(e.target)) {
+                fabButtons.classList.remove('show');
+            }
+        });
+        
+        // Close modal when clicking outside content
+        profileModal.addEventListener('click', function(e) {
+            if (e.target === profileModal) {
+                profileModal.classList.remove('active');
+            }
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html>
