@@ -3,501 +3,635 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Essential Services | 3D Floor Tiles</title>
+    <title>VIVAAH Setu - Premium Wedding Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        :root {
+            --primary: #FF6B8B;
+            --secondary: #6A5ACD;
+            --accent: #FFD700;
+            --light: #F8F9FA;
+            --dark: #343A40;
+            --success: #20BF6B;
+            --mac-titlebar: linear-gradient(90deg, #FF6B6B, #6B5B95, #88D3CE);
+            --tile-1: #FF6B8B;
+            --tile-2: #6A5ACD;
+            --tile-3: #FFD700;
+            --tile-4: #20BF6B;
+            --tile-5: #FF9F1C;
+            --tile-6: #3498DB;
+            --tile-7: #9B59B6;
+            --tile-8: #1ABC9C;
+            --tile-9: #E74C3C;
         }
 
         body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
             min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             overflow-x: hidden;
-            color: white;
+            padding-bottom: 100px;
         }
 
-        .page-container {
-            max-width: 1400px;
-            width: 100%;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        header {
-            text-align: center;
-            padding: 30px 0;
-            width: 100%;
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        h1 {
-            color: #fff;
-            font-size: 3.2rem;
-            margin-bottom: 15px;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-            letter-spacing: -0.5px;
-            font-weight: 700;
-            background: linear-gradient(to right, #ff8a00, #da1b60);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-            display: inline-block;
-        }
-
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(to right, #ff8a00, #da1b60);
-            border-radius: 2px;
-        }
-
-        .subtitle {
-            color: #c5c5e9;
-            font-size: 1.3rem;
-            margin: 25px auto 40px;
-            max-width: 700px;
-            line-height: 1.6;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        .tiles-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 35px;
-            width: 100%;
-            perspective: 1500px;
-            margin: 30px 0;
-        }
-
-        .tile {
-            height: 300px;
-            background: linear-gradient(145deg, rgba(45, 45, 68, 0.7), rgba(37, 37, 56, 0.7));
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                        box-shadow 0.4s ease;
-            box-shadow: 
-                0 12px 35px rgba(0, 0, 0, 0.5),
-                inset 0 0 20px rgba(255, 255, 255, 0.05);
-            transform-style: preserve-3d;
-            transform: translateZ(0);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(5px);
+        /* macOS style titlebar */
+        .titlebar {
+            height: 90px; /* Increased height for larger logo */
+            background: var(--mac-titlebar);
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-decoration: none;
-        }
-
-        .tile::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.03) 100%);
-            z-index: 1;
-            border-radius: 20px;
-        }
-
-        .tile::after {
-            content: '';
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
-            height: 30%;
-            background: rgba(0, 0, 0, 0.25);
-            border-radius: 12px;
-            z-index: 1;
-            transform: translateZ(20px);
-            transition: all 0.4s ease;
-        }
-
-        .tile:hover {
-            transform: translateY(-15px) translateZ(20px);
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.7),
-                inset 0 0 40px rgba(255, 255, 255, 0.1);
-        }
-
-        .tile:hover::after {
-            transform: translateZ(40px);
-            background: rgba(0, 0, 0, 0.35);
-        }
-
-        .tile-icon {
-            font-size: 5rem;
-            margin-bottom: 20px;
+            justify-content: center;
+            padding: 0 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: relative;
-            z-index: 2;
-            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            z-index: 10;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 20px; /* Increased gap for better spacing */
+        }
+
+        .brand-logo {
+            height: 70px; /* Increased logo size */
+            width: auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
             transition: all 0.3s ease;
+            object-fit: contain; /* Maintain aspect ratio */
         }
 
-        .tile:hover .tile-icon {
-            transform: scale(1.1) translateZ(30px);
-        }
-
-        .tile-title {
+        .brand-name {
             color: white;
-            font-size: 2rem;
-            font-weight: 600;
-            position: relative;
-            z-index: 2;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s ease;
-            text-align: center;
+            font-weight: 700;
+            font-size: 2.2rem; /* Slightly larger text */
+            letter-spacing: 1.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
             padding: 0 20px;
         }
 
-        .tile:hover .tile-title {
-            transform: translateZ(30px);
+        .hero {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.8);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
         }
 
-        /* Individual tile colors */
-        .tile:nth-child(1) { --color: #ff6b6b; }
-        .tile:nth-child(2) { --color: #4ecdc4; }
-        .tile:nth-child(3) { --color: #ffd166; }
-        .tile:nth-child(4) { --color: #ef476f; }
-        .tile:nth-child(5) { --color: #06d6a0; }
-        .tile:nth-child(6) { --color: #118ab2; }
-        .tile:nth-child(7) { --color: #ff9e6d; }
-        .tile:nth-child(8) { --color: #9b5de5; }
-        .tile:nth-child(9) { --color: #00bbf9; }
-
-        .tile-icon { color: var(--color); }
-        .tile::before { box-shadow: inset 0 0 100px var(--color); }
-
-        .tile:hover .tile-icon {
-            text-shadow: 0 0 25px var(--color);
+        .hero h1 {
+            font-size: 2.8rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
         }
 
-        .tile-title::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 3px;
-            background: var(--color);
-            margin: 15px auto 0;
-            border-radius: 3px;
-            transition: all 0.4s ease;
+        .hero p {
+            color: #666;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
         }
 
-        .tile:hover .tile-title::after {
-            width: 80px;
-            background: white;
-            box-shadow: 0 0 15px var(--color);
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
         }
 
-        .tile-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .service-tile {
+            perspective: 1000px;
+            height: 220px;
+            cursor: pointer;
+        }
+
+        .tile-inner {
+            position: relative;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, var(--color) 0%, transparent 70%);
-            opacity: 0.1;
-            transition: opacity 0.4s ease;
-            z-index: 0;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
-        .tile:hover .tile-bg {
-            opacity: 0.2;
+        .service-tile:hover .tile-inner {
+            transform: rotateY(15deg) rotateX(10deg) translateY(-10px);
         }
 
-        footer {
-            margin-top: 60px;
-            color: #a0a0d0;
-            text-align: center;
-            padding: 30px;
-            font-size: 1rem;
+        .tile-front, .tile-back {
+            position: absolute;
             width: 100%;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .social-links {
+            height: 100%;
+            backface-visibility: hidden;
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
+            align-items: center;
+            padding: 20px;
+            border-radius: 18px;
         }
 
-        .social-links a {
-            color: #c5c5e9;
-            font-size: 1.4rem;
+        .tile-front {
+            background: linear-gradient(135deg, var(--tile-color), #ffffff);
+            color: white;
+        }
+
+        .tile-back {
+            background: white;
+            transform: rotateY(180deg);
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .tile-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.2));
+        }
+
+        .tile-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: 0.5px;
+        }
+
+        .tile-back p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-top: 10px;
+            color: #666;
+        }
+
+        .explore-btn {
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: var(--tile-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .explore-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        .notice-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+
+        .notice-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 25px rgba(255,107,139,0.4);
             transition: all 0.3s ease;
         }
 
-        .social-links a:hover {
-            color: white;
-            transform: translateY(-3px);
+        .notice-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(255,107,139,0.6);
         }
 
-        /* Mobile responsiveness */
-        @media (max-width: 900px) {
-            h1 { font-size: 2.6rem; }
-            .subtitle { font-size: 1.1rem; }
-            .tiles-container { gap: 25px; }
-            .tile { height: 250px; }
-            .tile-icon { font-size: 4rem; }
-            .tile-title { font-size: 1.7rem; }
-        }
-
-        @media (max-width: 600px) {
-            h1 { font-size: 2.2rem; }
-            .tiles-container {
-                grid-template-columns: 1fr;
-                max-width: 450px;
-            }
-            .tile { height: 220px; }
-            .tile-icon { font-size: 3.8rem; }
-            .tile-title { font-size: 1.6rem; }
-        }
-
-        /* Animation for tile entrance */
-        @keyframes tileEntrance {
-            from {
-                opacity: 0;
-                transform: translateY(60px) rotateX(-30deg);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) rotateX(0);
-            }
-        }
-
-        .tile {
-            animation: tileEntrance 0.8s ease-out forwards;
-            opacity: 0;
-        }
-
-        .tile:nth-child(1) { animation-delay: 0.1s; }
-        .tile:nth-child(2) { animation-delay: 0.2s; }
-        .tile:nth-child(3) { animation-delay: 0.3s; }
-        .tile:nth-child(4) { animation-delay: 0.4s; }
-        .tile:nth-child(5) { animation-delay: 0.5s; }
-        .tile:nth-child(6) { animation-delay: 0.6s; }
-        .tile:nth-child(7) { animation-delay: 0.7s; }
-        .tile:nth-child(8) { animation-delay: 0.8s; }
-        .tile:nth-child(9) { animation-delay: 0.9s; }
-
-        /* Loading overlay */
-        .loading-overlay {
+        .notice-panel {
             position: fixed;
-            top: 0;
+            bottom: -400px;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: rgba(10, 10, 25, 0.95);
+            height: 380px;
+            background: white;
+            border-radius: 30px 30px 0 0;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
+            z-index: 99;
+            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .notice-panel.active {
+            bottom: 0;
+        }
+
+        .panel-header {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            z-index: 1000;
-            opacity: 1;
-            transition: opacity 0.5s ease;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
         }
 
-        .loading-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
+        .panel-header h2 {
+            color: var(--dark);
+            font-size: 1.8rem;
         }
 
-        .spinner {
-            width: 80px;
-            height: 80px;
-            border: 5px solid rgba(255, 255, 255, 0.1);
-            border-top: 5px solid #ff6b6b;
+        .close-panel {
+            background: #f1f1f1;
+            border: none;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .close-panel:hover {
+            background: #e0e0e0;
+            transform: rotate(90deg);
         }
 
-        /* Page transition */
-        .page-transition {
+        .notices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .notice-card {
+            background: #f9f9ff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary);
+        }
+
+        .notice-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .notice-card h3 {
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .notice-card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .notice-date {
+            display: block;
+            margin-top: 10px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-            z-index: 999;
-            transform: scaleY(0);
-            transform-origin: bottom;
-            transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1);
+            background: rgba(0,0,0,0.5);
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive adjustments for logo */
+        @media (max-width: 992px) {
+            .brand-logo {
+                height: 60px; /* Slightly smaller on medium screens */
+            }
+            .brand-name {
+                font-size: 1.9rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .notices-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .brand-logo {
+                height: 50px;
+            }
+            
+            .brand-name {
+                font-size: 1.6rem;
+            }
+            
+            .titlebar {
+                height: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand {
+                gap: 15px;
+            }
+            
+            .brand-logo {
+                height: 45px; /* Still visible on small screens */
+            }
+            
+            .brand-name {
+                font-size: 1.3rem;
+            }
+            
+            .hero {
+                padding: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .titlebar {
+                height: 70px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner"></div>
+    <!-- macOS style titlebar with logo -->
+    <div class="titlebar">
+        <div class="brand">
+            <!-- Replace the src attribute with the path to your PNG logo -->
+            <img src="vslogo.png" alt="Vivian Setu Logo" class="brand-logo">
+            <div class="brand-name">VIVAAH SETU</div>
+        </div>
     </div>
-    
-    <div class="page-transition" id="pageTransition"></div>
-    
-    <div class="page-container">
-        <header>
-            <h1>Essential Services</h1>
-            <div class="subtitle">Discover premium providers for your special occasions. Each service tile opens a dedicated page with detailed information and booking options.</div>
-        </header>
 
-        <div class="tiles-container">
-            <a href="jewelry.html" class="tile">
-                <div class="tile-bg"></div>
-                <i class="fas fa-gem tile-icon"></i>
-                <h2 class="tile-title">Jewelry</h2>
-            </a>
-            
-            <a href="catering.html" class="tile">
-                <div class="tile-bg"></div>
-                <i class="fas fa-utensils tile-icon"></i>
-                <h2 class="tile-title">Catering</h2>
-            </a>
-            
-            <a href="photography.html" class="tile">
-                <div class="tile-bg"></div>
-                <i class="fas fa-camera tile-icon"></i>
-                <h2 class="tile-title">Photography</h2>
-            </a>
-            
-            <a href="entertainment.html" class="tile">
-                <div class="tile-bg"></div>
-                <i class="fas fa-music tile-icon"></i>
-                <h2 class="tile-title">Entertainment</h2>
-            </a>
-            
-            <a href="mehndi.html" class="tile">
-                <div class="tile-bg"></div>
-                <i class="fas fa-paint-brush tile-icon"></i>
-                <h2 class="tile-title">Mehndi Artist</h2>
-            </a>
-            
-            <a href="venues.html" class="tile">
-                <div class="tile-bg"></div>
-                <i class="fas fa-building tile-icon"></i>
-                <h2 class="tile-title">Venues</h2>
-            </a>
-            
-            <a href="decorators.html" class="tile">
-                <div class="tile-bg"></div>
-                <i class="fas fa-paint-roller tile-icon"></i>
-                <h2 class="tile-title">Decorators</h2>
-            </a>
-            
-            <a href="transport.html" class="tile">
-                <div class="tile-bg"></div>
-                <i class="fas fa-car tile-icon"></i>
-                <h2 class="tile-title">Transport</h2>
-            </a>
-            
-            <a href="invitations.html" class="tile">
-                <div class="tile-bg"></div>
-                <i class="fas fa-envelope tile-icon"></i>
-                <h2 class="tile-title">Invitations</h2>
-            </a>
+    <div class="container">
+        <div class="hero">
+            <h1>Premium Wedding Services</h1>
+            <p>Your dream wedding begins here. Explore our curated collection of premium vendors and services to make your special day truly unforgettable.</p>
         </div>
 
-        <footer>
-            <div class="footer-content">
-                <p>© 2023 Essential Services | Premium providers for weddings and special events</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-pinterest"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+        <div class="services-grid">
+            <!-- Service Tiles -->
+            <div class="service-tile" style="--tile-color: var(--tile-1)" onclick="window.location.href='jewelry.html'">
+                <div class="tile-inner">
+                    <div class="tile-front">
+                        <i class="fas fa-gem tile-icon"></i>
+                        <h2 class="tile-title">JEWELRY</h2>
+                    </div>
+                    <div class="tile-back">
+                        <h2 class="tile-title">JEWELRY</h2>
+                        <p>Exquisite bridal sets, diamond jewelry, and traditional gold collections</p>
+                        <button class="explore-btn">Explore</button>
+                    </div>
                 </div>
             </div>
-        </footer>
+
+            <div class="service-tile" style="--tile-color: var(--tile-2)" onclick="window.location.href='catering.html'">
+                <div class="tile-inner">
+                    <div class="tile-front">
+                        <i class="fas fa-utensils tile-icon"></i>
+                        <h2 class="tile-title">CATERING</h2>
+                    </div>
+                    <div class="tile-back">
+                        <h2 class="tile-title">CATERING</h2>
+                        <p>Gourmet cuisine, traditional dishes, and customized menus</p>
+                        <button class="explore-btn">Explore</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-tile" style="--tile-color: var(--tile-3)" onclick="window.location.href='photography.html'">
+                <div class="tile-inner">
+                    <div class="tile-front">
+                        <i class="fas fa-camera tile-icon"></i>
+                        <h2 class="tile-title">PHOTOGRAPHY</h2>
+                    </div>
+                    <div class="tile-back">
+                        <h2 class="tile-title">PHOTOGRAPHY</h2>
+                        <p>Professional wedding photography and cinematography services</p>
+                        <button class="explore-btn">Explore</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-tile" style="--tile-color: var(--tile-4)" onclick="window.location.href='entertainment.html'">
+                <div class="tile-inner">
+                    <div class="tile-front">
+                        <i class="fas fa-music tile-icon"></i>
+                        <h2 class="tile-title">ENTERTAINMENT</h2>
+                    </div>
+                    <div class="tile-back">
+                        <h2 class="tile-title">ENTERTAINMENT</h2>
+                        <p>Live bands, DJs, dancers, and performers for your special day</p>
+                        <button class="explore-btn">Explore</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-tile" style="--tile-color: var(--tile-5)" onclick="window.location.href='mehndi.html'">
+                <div class="tile-inner">
+                    <div class="tile-front">
+                        <i class="fas fa-paint-brush tile-icon"></i>
+                        <h2 class="tile-title">MEHNDI</h2>
+                    </div>
+                    <div class="tile-back">
+                        <h2 class="tile-title">MEHNDI</h2>
+                        <p>Traditional and contemporary henna designs by expert artists</p>
+                        <button class="explore-btn">Explore</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-tile" style="--tile-color: var(--tile-6)" onclick="window.location.href='venues.html'">
+                <div class="tile-inner">
+                    <div class="tile-front">
+                        <i class="fas fa-hotel tile-icon"></i>
+                        <h2 class="tile-title">VENUES</h2>
+                    </div>
+                    <div class="tile-back">
+                        <h2 class="tile-title">VENUES</h2>
+                        <p>Luxurious banquet halls, outdoor gardens, and destination venues</p>
+                        <button class="explore-btn">Explore</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-tile" style="--tile-color: var(--tile-7)" onclick="window.location.href='decorators.html'">
+                <div class="tile-inner">
+                    <div class="tile-front">
+                        <i class="fas fa-palette tile-icon"></i>
+                        <h2 class="tile-title">DECORATORS</h2>
+                    </div>
+                    <div class="tile-back">
+                        <h2 class="tile-title">DECORATORS</h2>
+                        <p>Theme-based decorations, floral arrangements, and lighting</p>
+                        <button class="explore-btn">Explore</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-tile" style="--tile-color: var(--tile-8)" onclick="window.location.href='transport.html'">
+                <div class="tile-inner">
+                    <div class="tile-front">
+                        <i class="fas fa-car tile-icon"></i>
+                        <h2 class="tile-title">TRANSPORT</h2>
+                    </div>
+                    <div class="tile-back">
+                        <h2 class="tile-title">TRANSPORT</h2>
+                        <p>Luxury cars, vintage vehicles, and group transportation</p>
+                        <button class="explore-btn">Explore</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-tile" style="--tile-color: var(--tile-9)" onclick="window.location.href='invitations.html'">
+                <div class="tile-inner">
+                    <div class="tile-front">
+                        <i class="fas fa-envelope tile-icon"></i>
+                        <h2 class="tile-title">INVITATIONS</h2>
+                    </div>
+                    <div class="tile-back">
+                        <h2 class="tile-title">INVITATIONS</h2>
+                        <p>Custom-designed wedding cards and digital invitations</p>
+                        <button class="explore-btn">Explore</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script>
-        // Simulate content loading
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                document.getElementById('loadingOverlay').classList.add('hidden');
-            }, 1200);
-        });
+    <!-- Notice Panel -->
+    <div class="notice-container">
+        <button class="notice-btn" id="noticeBtn">
+            <i class="fas fa-bell"></i>
+            View Notices
+        </button>
+    </div>
 
-        // Add interactive effects
-        document.querySelectorAll('.tile').forEach(tile => {
-            tile.addEventListener('mousemove', (e) => {
-                const rect = tile.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateY = (x - centerX) / 15;
-                const rotateX = (centerY - y) / 15;
-                
-                tile.style.transform = `translateY(-15px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
+    <div class="notice-panel" id="noticePanel">
+        <div class="panel-header">
+            <h2>Important Notices</h2>
+            <button class="close-panel" id="closePanel">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="notices-grid">
+            <div class="notice-card">
+                <h3>Summer Discounts</h3>
+                <p>Avail special discounts on venue bookings and catering services for weddings scheduled in June and July.</p>
+                <span class="notice-date">Posted: May 28, 2025</span>
+            </div>
+            <div class="notice-card">
+                <h3>New Photography Packages</h3>
+                <p>Check out our new pre-wedding and candid photography packages starting from $999.</p>
+                <span class="notice-date">Posted: May 25, 2025</span>
+            </div>
+            <div class="notice-card">
+                <h3>Venue Maintenance</h3>
+                <p>The Grand Ballroom will be closed for maintenance from June 10-15. Bookings during this period are postponed.</p>
+                <span class="notice-date">Posted: May 22, 2025</span>
+            </div>
+            <div class="notice-card">
+                <h3>Jewelry Exhibition</h3>
+                <p>Visit our exclusive bridal jewelry exhibition on June 5-7 at the Convention Center.</p>
+                <span class="notice-date">Posted: May 20, 2025</span>
+            </div>
+            <div class="notice-card">
+                <h3>New Vendor Added</h3>
+                <p>We're excited to welcome "Royal Decorators" to our premium vendor list. Book now for exclusive designs.</p>
+                <span class="notice-date">Posted: May 18, 2025</span>
+            </div>
+            <div class="notice-card">
+                <h3>Transportation Update</h3>
+                <p>Due to high demand, advance booking for luxury cars is now required at least 3 months prior.</p>
+                <span class="notice-date">Posted: May 15, 2025</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const noticeBtn = document.getElementById('noticeBtn');
+            const noticePanel = document.getElementById('noticePanel');
+            const closePanel = document.getElementById('closePanel');
+            const overlay = document.getElementById('overlay');
+            
+            noticeBtn.addEventListener('click', function() {
+                noticePanel.classList.add('active');
+                overlay.classList.add('active');
             });
             
-            tile.addEventListener('mouseleave', () => {
-                tile.style.transform = 'translateY(-15px) translateZ(20px)';
+            closePanel.addEventListener('click', function() {
+                noticePanel.classList.remove('active');
+                overlay.classList.remove('active');
             });
             
-            // Add click functionality for page transitions
-            tile.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetPage = tile.getAttribute('href');
-                
-                // Show page transition
-                const transition = document.getElementById('pageTransition');
-                transition.style.transform = 'scaleY(1)';
-                transition.style.transformOrigin = 'top';
-                
-                setTimeout(() => {
-                    // In a real scenario, this would navigate to the page
-                    // window.location.href = targetPage;
-                    
-                    // For this demo, show an alert and reset
-                    const title = tile.querySelector('.tile-title').textContent;
-                    alert(`Navigating to ${title} page...\nIn a real implementation, this would open ${targetPage}`);
-                    
-                    // Reset transition
-                    setTimeout(() => {
-                        transition.style.transform = 'scaleY(0)';
-                        transition.style.transformOrigin = 'bottom';
-                    }, 300);
-                }, 600);
+            overlay.addEventListener('click', function() {
+                noticePanel.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+            
+            // Add slight delay to service tiles for staggered animation
+            const tiles = document.querySelectorAll('.service-tile');
+            tiles.forEach((tile, index) => {
+                tile.style.animationDelay = `${index * 0.1}s`;
             });
         });
     </script>
