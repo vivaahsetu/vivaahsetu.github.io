@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-LDMLSEC5L1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-LDMLSEC5L1');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LDMLSEC5L1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-LDMLSEC5L1');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vivaah Setu - Essential Services</title>
@@ -20,6 +19,17 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Roboto, Oxygen, sans-serif;
+        }
+         /* for logo of webpage */
+        .logo-img {
+            height: 40px;
+            width: auto;
+            border-radius: 5px;
+        }
+        
+        /* Adjust header padding for logo */
+        header {
+            padding: 12px 20px;
         }
         
         :root {
@@ -34,6 +44,8 @@
             --success: #25d366;
             --error: #e1306c;
             --services-color: #3498db;
+            --male-gradient: linear-gradient(135deg, #0071e3, #00a2ff);
+            --female-gradient: linear-gradient(135deg, #ff4d6d, #ff8fa3);
         }
         
         body {
@@ -119,15 +131,17 @@
             gap: 10px;
         }
         
-        .logo i {
-            color: #ff4d6d;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        .logo-img {
+            height: 40px;
+            width: auto;
+            border-radius: 5px;
+            background: linear-gradient(45deg, #ff4d6d, #ff8fa3);
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
         }
         
         .logo h1 {
@@ -475,13 +489,20 @@
         
         .profile-img {
             height: 200px;
-            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
             display: flex;
             justify-content: center;
             align-items: center;
             color: white;
             font-size: 3rem;
             position: relative;
+        }
+        
+        .male-bg {
+            background: var(--male-gradient);
+        }
+        
+        .female-bg {
+            background: var(--female-gradient);
         }
         
         .profile-img::after {
@@ -603,11 +624,18 @@
         }
         
         .modal-header {
-            background: linear-gradient(45deg, var(--mac-blue), #5d9bff);
             padding: 30px 30px 50px;
             color: white;
             position: relative;
             border-radius: 20px 20px 0 0;
+        }
+        
+        .modal-male-bg {
+            background: linear-gradient(45deg, var(--mac-blue), #5d9bff);
+        }
+        
+        .modal-female-bg {
+            background: linear-gradient(45deg, #ff4d6d, #ff8fa3);
         }
         
         .modal-profile-img {
@@ -617,7 +645,6 @@
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -803,6 +830,7 @@
         .fab-button:nth-child(2) { background: var(--mac-purple); } /* Kundli */
         .fab-button:nth-child(3) { background: #e1306c; } /* Instagram */
         .fab-button:nth-child(4) { background: var(--services-color); } /* Other Services */
+        .fab-button:nth-child(5) { background: #25d366; } /* Call Support */
         
         /* Footer */
         footer {
@@ -918,7 +946,7 @@
     <!-- Notice Panel -->
     <div class="notice-btn" id="noticeBtn">
         <i class="fas fa-bell"></i>
-        <div class="notification-badge">3</div>
+        <div class="notification-badge">6</div>
     </div>
     
     <!-- Notice Overlay -->
@@ -935,40 +963,46 @@
             <div class="notice-item">
                 <h3><i class="fas fa-star"></i> New Feature: Kundli Matching</h3>
                 <p>We've added a new kundli matching feature to help you find astrologically compatible partners. This premium feature analyzes both partners' birth charts for compatibility.</p>
-                <div class="notice-date"><i class="fas fa-calendar"></i> June 15, 2023</div>
+                <div class="notice-date"><i class="fas fa-calendar"></i> May 29, 2025</div>
+           
+           
             </div>
             <div class="notice-item">
                 <h3><i class="fas fa-shield-alt"></i> Profile Verification</h3>
-                <p>All profiles are now manually verified to ensure authenticity and safety for our users. Look for the verified badge on profiles that have completed the verification process.</p>
-                <div class="notice-date"><i class="fas fa-calendar"></i> June 5, 2023</div>
+                <p>All profiles are now manually verified to ensure their authenticity and safety for our users. To identify verified profiles, look for the verified badge. Only verified users can join our WhatsApp group.</p>
+                <div class="notice-date"><i class="fas fa-calendar"></i> May 29, 2025</div>
             </div>
+            
+            
             <div class="notice-item">
                 <h3><i class="fas fa-crown"></i> Premium Membership</h3>
                 <p>Introducing premium membership with advanced search filters, priority support, and unlimited messaging. Upgrade today to enhance your matchmaking experience.</p>
-                <div class="notice-date"><i class="fas fa-calendar"></i> May 28, 2024</div>
+                <div class="notice-date"><i class="fas fa-calendar"></i> May 25, 2025</div>
             </div>
             <div class="notice-item">
                 <h3><i class="fas fa-lock"></i> Safety Guidelines</h3>
                 <p>Please review our new safety guidelines to protect your personal information. We recommend never sharing financial details with anyone through our platform.</p>
-                <div class="notice-date"><i class="fas fa-calendar"></i> May 20, 2024</div>
+                <div class="notice-date"><i class="fas fa-calendar"></i> May 29, 2025</div>
             </div>
             <div class="notice-item">
                 <h3><i class="fas fa-users"></i> Community Events</h3>
-                <p>Join our upcoming community meetups in major cities to meet potential matches in person. Events will be held in Delhi, Mumbai, Bangalore, and Hyderabad.</p>
-                <div class="notice-date"><i class="fas fa-calendar"></i> May 15, 2024</div>
+                <p>Join our upcoming community meetups to meet potential matches in person. Events will be held in Jammu.</p>
+                <div class="notice-date"><i class="fas fa-calendar"></i> May 28, 2025</div>
             </div>
             <div class="notice-item">
-                <h3><i class="fas fa-mobile-alt"></i> Mobile App Launch</h3>
-                <p>Our mobile app is now available on both iOS and Android platforms. Download it today for a better user experience with push notifications for new matches.</p>
-                <div class="notice-date"><i class="fas fa-calendar"></i> May 10, 2024</div>
+                <h3><i class="fas fa-mobile-alt"></i> Compatibility of web sight </h3>
+                <p>This website is compatible with both phones and laptops. However, for the best user experience, it’s recommended to use a laptop or a large screen. </p>
+                <div class="notice-date"><i class="fas fa-calendar"></i> May 29, 2025</div>
             </div>
+             
         </div>
     </div>
     
     <!-- Header -->
-    <header>
+   <header>
         <div class="logo">
-            <i class="fas fa-heart"></i>
+            <!-- Replace the text logo with your image -->
+            <img class="logo-img" src="vslogo.png" alt="Vivaah Setu Logo">
             <h1>Vivaah Setu</h1>
         </div>
         <div class="profile-count">
@@ -993,6 +1027,11 @@
                         <option value="bride">Bride</option>
                         <option value="groom">Groom</option>
                     </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" placeholder="Enter city or state">
                 </div>
                 
                 <div class="filter-group">
@@ -1118,6 +1157,9 @@
             <a href="services.html" class="fab-button" title="Other Essential Services">
                 <i class="fas fa-concierge-bell"></i>
             </a>
+            <a href="tel:+919086124271" class="fab-button" title="Call Support">
+                <i class="fas fa-phone"></i>
+            </a>
         </div>
         
         <div class="fab-main" id="fabMain">
@@ -1134,13 +1176,24 @@
     <script>
         // Enhanced profile data with caste and gender information
         const profiles = [
-            {id: 1,name: "Aarav Sharma",dob: "1990-05-15",gender: "M",location: "Mumbai, India",occupation: "Software Engineer",education: "M.Tech Computer Science",manglik: "Non-Manglik",employment: "Private",nationality: "Indian",caste: "Brahmin",maritalStatus: "Never Married",phone: "+919876543210",about: "Seeking a well-educated, family-oriented partner who values traditions. I enjoy traveling and exploring new cultures.",family: "Nuclear family, father retired from government service, mother homemaker, one sister married",status: "New"},
-            
-            
-            
-            
-            
-            
+            {
+                id: 1,
+                name: "Aarav Sharma",
+                dob: "1990-05-15",
+                gender: "M",
+                location: "Mumbai, India",
+                occupation: "Software Engineer",
+                education: "M.Tech Computer Science",
+                manglik: "Non-Manglik",
+                employment: "Private",
+                nationality: "Indian",
+                caste: "Brahmin",
+                maritalStatus: "Never Married",
+                phone: "+919876543210",
+                about: "Seeking a well-educated, family-oriented partner who values traditions. I enjoy traveling and exploring new cultures.",
+                family: "Nuclear family, father retired from government service, mother homemaker, one sister married",
+                status: "New"
+            },
             {
                 id: 2,
                 name: "Priya Patel",
@@ -1231,6 +1284,7 @@
                 family: "Nuclear family, father businessman, mother teacher, one elder brother married",
                 status: "Premium"
             }
+            
         ];
         
         // DOM Elements
@@ -1321,9 +1375,12 @@
                 if (profile.status === "Premium") badgeClass = 'background: var(--mac-purple);';
                 if (profile.status === "New") badgeClass = 'background: var(--mac-blue);';
                 
+                // Determine gender-based background
+                const genderClass = profile.gender === 'M' ? 'male-bg' : 'female-bg';
+                
                 profileCard.innerHTML = `
                     <div class="profile-badge" style="${badgeClass}">${profile.status}</div>
-                    <div class="profile-img">
+                    <div class="profile-img ${genderClass}">
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="profile-info">
@@ -1364,6 +1421,7 @@
             // Simulate network delay
             setTimeout(() => {
                 const searchFor = document.getElementById('searchFor').value;
+                const locationInput = document.getElementById('location').value.trim().toLowerCase();
                 const yearFrom = document.getElementById('yearFrom').value;
                 const yearTo = document.getElementById('yearTo').value;
                 const maritalStatus = document.getElementById('maritalStatus').value;
@@ -1400,8 +1458,13 @@
                         case "Widowed": maritalValue = "widowed"; break;
                     }
                     
+                    // Check location
+                    const locationMatch = locationInput === '' || 
+                        profile.location.toLowerCase().includes(locationInput);
+                    
                     // Check each filter condition
                     return genderMatch &&
+                           locationMatch &&
                            (yearFrom === 'any' || birthYear >= parseInt(yearFrom)) &&
                            (yearTo === 'any' || birthYear <= parseInt(yearTo)) &&
                            (maritalStatus === 'any' || maritalValue === maritalStatus) &&
@@ -1425,11 +1488,13 @@
         // Show detailed profile modal
         function showProfileModal(profile) {
             // Generate modal content
+            const genderClass = profile.gender === 'M' ? 'modal-male-bg' : 'modal-female-bg';
+            
             modalContent.innerHTML = `
                 <div class="close-modal" id="closeModal">
                     <i class="fas fa-times"></i>
                 </div>
-                <div class="modal-header">
+                <div class="modal-header ${genderClass}">
                     <div class="modal-profile-img">
                         <i class="fas fa-user"></i>
                     </div>
@@ -1512,12 +1577,21 @@
             });
         }
         
-        // Call profile function
+        // Call profile function with error handling
         function callProfile(phone) {
-            if (confirm(`Call ${phone}?`)) {
-                // In a real app, this would initiate a phone call
-                alert(`Calling ${phone}...`);
-                // Actual implementation would be: window.location.href = `tel:${phone}`;
+            try {
+                if (!phone || phone.trim() === '') {
+                    throw new Error('Phone number is missing');
+                }
+                
+                if (confirm(`Call ${phone}?`)) {
+                    // In a real app, this would initiate a phone call
+                    alert(`Calling ${phone}...`);
+                    // Actual implementation would be: window.location.href = `tel:${phone}`;
+                }
+            } catch (error) {
+                console.error('Call failed:', error);
+                alert('Could not make the call. Please try again later.');
             }
         }
         
