@@ -1409,6 +1409,25 @@ about: "(Ex LT comdr Navy) ",
 family:"Father: Senior Audit Officer (Retd.)",
 status: "New"
 },
+{
+id: 13,
+name:"For testing",
+dob:"03/26/1987",
+gender:"M",
+location:"Kheri Mandi Samba",
+occupation:"Pilot, Global Vectra helicopter corporation Mumbai",
+education:"Unknown",
+manglik:"Non-Manglik",
+employment:"Private",
+nationality:"Indian",
+caste:"Rajput",
+maritalStatus:"Divorced",
+phone: "+91 9596658921",
+about: "(Ex LT comdr Navy) ",
+family:"###########",
+status: "New"
+},
+
    
             
             
@@ -1706,17 +1725,20 @@ status: "New"
             });
         }
         
-        // Call profile function with error handling
+        // Call profile function with FIXED functionality
         function callProfile(phone) {
             try {
                 if (!phone || phone.trim() === '') {
                     throw new Error('Phone number is missing');
                 }
                 
+                // Clean phone number
+                const cleanPhone = phone.replace(/\s+/g, '');
+                
+                // Show confirmation dialog
                 if (confirm(`Call ${phone}?`)) {
-                    // In a real app, this would initiate a phone call
-                    alert(`Calling ${phone}...`);
-                    // Actual implementation would be: window.location.href = `tel:${phone}`;
+                    // Redirect to tel: protocol which opens the device's dialer
+                    window.location.href = `tel:${cleanPhone}`;
                 }
             } catch (error) {
                 console.error('Call failed:', error);
