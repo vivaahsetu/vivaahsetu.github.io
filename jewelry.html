@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jewelry Directory</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+            color: #d4af37;
+        }
+
+        .logo h1 {
+            font-weight: 300;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            font-weight: 600;
+            color: #d4af37;
+        }
+
+        /* Filter Section */
+        .filters {
+            background-color: #fff;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .filter-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .filter-input:focus {
+            border-color: #d4af37;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1);
+        }
+
+        .rating-filter {
+            display: flex;
+            gap: 8px;
+        }
+
+        .rating-star {
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #ddd;
+            transition: color 0.2s;
+        }
+
+        .rating-star.active {
+            color: #ffc107;
+        }
+
+        /* Business Tiles Grid */
+        .business-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .business-tile {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .business-tile:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .profile-placeholder {
+            height: 180px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4af37;
+            font-size: 3.5rem;
+        }
+
+        .business-info {
+            padding: 20px;
+        }
+
+        .business-name {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #222;
+        }
+
+        .business-location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .location-icon {
+            color: #d4af37;
+        }
+
+        .rating-badge {
+            background-color: #fff9e6;
+            color: #e6b400;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Expanded Business Details */
+        .detail-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s;
+        }
+
+        .detail-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .detail-content {
+            background: #fff;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.4s ease;
+        }
+
+        .detail-overlay.active .detail-content {
+            transform: scale(1);
+        }
+
+        .detail-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: background 0.3s;
+        }
+
+        .detail-close:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .detail-header {
+            height: 250px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4af37;
+            font-size: 5rem;
+        }
+
+        .detail-body {
+            padding: 30px;
+        }
+
+        .detail-name {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .detail-location {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .detail-rating {
+            background-color: #fff9e6;
+            color: #e6b400;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .detail-description {
+            margin-bottom: 30px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .call-button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background-color: #d4af37;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .call-button:hover {
+            background-color: #c19b2e;
+        }
+
+        /* Notification Panel */
+        .notification-btn {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            width: 60px;
+            height: 60px;
+            background: #d4af37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 99;
+            transition: transform 0.3s;
+        }
+
+        .notification-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .notification-panel {
+            position: fixed;
+            bottom: -400px;
+            left: 0;
+            width: 100%;
+            background: white;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.15);
+            z-index: 101;
+            transition: bottom 0.4s ease;
+            padding: 25px;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .notification-panel.active {
+            bottom: 0;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .panel-header h2 {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .close-panel {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #777;
+            cursor: pointer;
+        }
+
+        .notification-tiles {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .notification-item {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .notification-icon {
+            width: 50px;
+            height: 50px;
+            background: #eef5ff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4af37;
+            font-size: 1.3rem;
+        }
+
+        .notification-content h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .notification-content p {
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .business-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .detail-header {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-gem logo-icon"></i>
+                <h1>Jewel<span>Directory</span></h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Filters -->
+    <section class="filters">
+        <div class="filter-container">
+            <div class="filter-group">
+                <label for="location-search">Location</label>
+                <input type="text" id="location-search" class="filter-input" placeholder="Search by city or area...">
+            </div>
+            <div class="filter-group">
+                <label>Rating</label>
+                <div class="rating-filter">
+                    <span class="rating-star" data-rating="1">★</span>
+                    <span class="rating-star" data-rating="2">★</span>
+                    <span class="rating-star" data-rating="3">★</span>
+                    <span class="rating-star" data-rating="4">★</span>
+                    <span class="rating-star active" data-rating="5">★</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Grid -->
+    <section class="business-grid" id="business-container">
+        <!-- Business tiles will be inserted here by JavaScript -->
+    </section>
+
+    <!-- Expanded Business Detail -->
+    <div class="detail-overlay" id="detail-overlay">
+        <div class="detail-content">
+            <button class="detail-close" id="detail-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="detail-header">
+                <i class="fas fa-gem"></i>
+            </div>
+            <div class="detail-body">
+                <h2 class="detail-name" id="detail-name">Luxury Gems</h2>
+                <div class="detail-location">
+                    <i class="fas fa-map-marker-alt location-icon"></i>
+                    <span id="detail-location">123 Diamond Street, New York</span>
+                </div>
+                <div class="detail-rating">
+                    <i class="fas fa-star"></i>
+                    <span id="detail-rating">4.8</span>
+                    <span>(128 Reviews)</span>
+                </div>
+                <p class="detail-description" id="detail-description">
+                    Luxury Gems is a premier jewelry destination offering exquisite diamond rings, 
+                    necklaces, and custom designs. Our master jewelers create timeless pieces using 
+                    ethically sourced gemstones and precious metals. Visit our showroom to experience 
+                    true craftsmanship and personalized service.
+                </p>
+                <a href="tel:+919086124271" class="call-button">
+                    <i class="fas fa-phone"></i> Call +91 9086124271
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Button -->
+    <div class="notification-btn" id="notification-btn">
+        <i class="fas fa-bell"></i>
+        <span class="notification-badge">3</span>
+    </div>
+
+    <!-- Notification Panel -->
+    <div class="notification-panel" id="notification-panel">
+        <div class="panel-header">
+            <h2>Notifications</h2>
+            <button class="close-panel" id="close-panel">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="notification-tiles">
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <div class="notification-content">
+                    <h3>New Collection</h3>
+                    <p>Diamond Dreams collection just launched</p>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-percent"></i>
+                </div>
+                <div class="notification-content">
+                    <h3>Special Offer</h3>
+                    <p>20% off on all gold jewelry this weekend</p>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="notification-content">
+                    <h3>Appointment Reminder</h3>
+                    <p>Your ring resizing appointment tomorrow at 2 PM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample jewelry businesses data
+        const businesses = [
+            {
+                id: 1,
+                name: "Luxury Gems",
+                location: "123 Diamond Street, New York",
+                rating: 4.8,
+                reviews: 128,
+                description: "Luxury Gems is a premier jewelry destination offering exquisite diamond rings, necklaces, and custom designs. Our master jewelers create timeless pieces using ethically sourced gemstones and precious metals."
+            },
+            {
+                id: 2,
+                name: "Golden Era",
+                location: "45 Gold Avenue, London",
+                rating: 4.5,
+                reviews: 92,
+                description: "Golden Era specializes in antique and vintage jewelry restoration. We also create bespoke engagement rings using conflict-free diamonds and recycled gold for environmentally conscious clients."
+            },
+            {
+                id: 3,
+                name: "Pearl Paradise",
+                location: "78 Ocean Drive, Miami",
+                rating: 4.9,
+                reviews: 156,
+                description: "Pearl Paradise offers the finest selection of South Sea and Tahitian pearls. Each piece is handcrafted by our artisans who have perfected the art of pearl jewelry over three generations."
+            },
+            {
+                id: 4,
+                name: "Royal Diamonds",
+                location: "22 Crown Plaza, Paris",
+                rating: 4.7,
+                reviews: 204,
+                description: "Royal Diamonds creates regal jewelry pieces inspired by European royalty. Our signature collections feature rare colored diamonds set in platinum with intricate hand-engraved details."
+            },
+            {
+                id: 5,
+                name: "Emerald Elegance",
+                location: "33 Green Valley, Dubai",
+                rating: 4.6,
+                reviews: 87,
+                description: "Emerald Elegance specializes in Colombian emeralds and precious gemstone jewelry. Our designers create bold, contemporary pieces that make a statement while maintaining timeless appeal."
+            },
+            {
+                id: 6,
+                name: "Platinum Artisans",
+                location: "9 Craftsmanship Road, Milan",
+                rating: 5.0,
+                reviews: 65,
+                description: "Platinum Artisans focuses on minimalist modern designs using platinum and white gold. Each piece is a work of wearable art with clean lines and exceptional attention to detail."
+            }
+        ];
+
+        // DOM Elements
+        const businessContainer = document.getElementById('business-container');
+        const detailOverlay = document.getElementById('detail-overlay');
+        const detailClose = document.getElementById('detail-close');
+        const notificationBtn = document.getElementById('notification-btn');
+        const notificationPanel = document.getElementById('notification-panel');
+        const closePanel = document.getElementById('close-panel');
+        const locationSearch = document.getElementById('location-search');
+        const ratingStars = document.querySelectorAll('.rating-star');
+
+        // Initialize the page
+        function initPage() {
+            renderBusinessTiles(businesses);
+            setupEventListeners();
+        }
+
+        // Render business tiles
+        function renderBusinessTiles(businessesArray) {
+            businessContainer.innerHTML = '';
+            
+            businessesArray.forEach(business => {
+                const tile = document.createElement('div');
+                tile.className = 'business-tile';
+                tile.dataset.id = business.id;
+                
+                tile.innerHTML = `
+                    <div class="profile-placeholder">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <div class="business-info">
+                        <h3 class="business-name">${business.name}</h3>
+                        <div class="business-location">
+                            <i class="fas fa-map-marker-alt location-icon"></i>
+                            <span>${business.location}</span>
+                        </div>
+                        <div class="rating-badge">
+                            <i class="fas fa-star"></i>
+                            <span>${business.rating}</span>
+                        </div>
+                    </div>
+                `;
+                
+                businessContainer.appendChild(tile);
+            });
+        }
+
+        // Show business details
+        function showBusinessDetails(businessId) {
+            const business = businesses.find(b => b.id === businessId);
+            if (!business) return;
+            
+            // Update detail elements
+            document.getElementById('detail-name').textContent = business.name;
+            document.getElementById('detail-location').textContent = business.location;
+            document.getElementById('detail-rating').textContent = business.rating;
+            document.getElementById('detail-description').textContent = business.description;
+            
+            // Show overlay
+            detailOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Business tile click
+            businessContainer.addEventListener('click', (e) => {
+                const tile = e.target.closest('.business-tile');
+                if (tile) {
+                    const businessId = parseInt(tile.dataset.id);
+                    showBusinessDetails(businessId);
+                }
+            });
+            
+            // Close detail overlay
+            detailClose.addEventListener('click', () => {
+                detailOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            // Notification button
+            notificationBtn.addEventListener('click', () => {
+                notificationPanel.classList.add('active');
+            });
+            
+            // Close notification panel
+            closePanel.addEventListener('click', () => {
+                notificationPanel.classList.remove('active');
+            });
+            
+            // Location search
+            locationSearch.addEventListener('input', () => {
+                filterBusinesses();
+            });
+            
+            // Rating filter
+            ratingStars.forEach(star => {
+                star.addEventListener('click', () => {
+                    // Remove active class from all stars
+                    ratingStars.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to clicked star and higher ratings
+                    const rating = parseInt(star.dataset.rating);
+                    for (let i = 0; i < rating; i++) {
+                        ratingStars[i].classList.add('active');
+                    }
+                    
+                    filterBusinesses();
+                });
+            });
+        }
+
+        // Filter businesses
+        function filterBusinesses() {
+            const locationTerm = locationSearch.value.toLowerCase();
+            const minRating = document.querySelectorAll('.rating-star.active').length;
+            
+            const filtered = businesses.filter(business => {
+                const locationMatch = business.location.toLowerCase().includes(locationTerm);
+                const ratingMatch = business.rating >= minRating;
+                return locationMatch && ratingMatch;
+            });
+            
+            renderBusinessTiles(filtered);
+        }
+
+        // Initialize the page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html>

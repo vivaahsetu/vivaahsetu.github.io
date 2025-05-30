@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mehndi Services Directory</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #fdf9f3;
+            color: #5a3825;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #f1d9c2 0%, #e7c8a9 100%);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid #c06c50;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+            color: #c06c50;
+        }
+
+        .logo h1 {
+            font-weight: 300;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            font-weight: 600;
+            color: #c06c50;
+        }
+
+        /* Filter Section */
+        .filters {
+            background-color: #fffaf5;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid #f1e0d2;
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #7d5d4a;
+        }
+
+        .filter-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0d0c0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            background-color: #fdf9f3;
+        }
+
+        .filter-input:focus {
+            border-color: #c06c50;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(192, 108, 80, 0.1);
+        }
+
+        .rating-filter {
+            display: flex;
+            gap: 8px;
+        }
+
+        .rating-star {
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #ddd;
+            transition: color 0.2s;
+        }
+
+        .rating-star.active {
+            color: #f1c27d;
+        }
+
+        /* Business Tiles Grid */
+        .business-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .business-tile {
+            background: #fffaf5;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid #f1e0d2;
+        }
+
+        .business-tile:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(192, 108, 80, 0.15);
+        }
+
+        .profile-placeholder {
+            height: 180px;
+            background: linear-gradient(135deg, #f8f0e8 0%, #f1e0d2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c06c50;
+            font-size: 3.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-placeholder::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23c06c50' fill-opacity='0.1' d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        .business-info {
+            padding: 20px;
+        }
+
+        .business-name {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #5a3825;
+        }
+
+        .business-location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #7d5d4a;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .location-icon {
+            color: #c06c50;
+        }
+
+        .rating-badge {
+            background-color: #fcf1e5;
+            color: #d4a15e;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .specialty-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .specialty-tag {
+            background-color: #f1e0d2;
+            color: #7d5d4a;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Expanded Business Details */
+        .detail-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s;
+        }
+
+        .detail-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .detail-content {
+            background: #fffaf5;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.4s ease;
+            border: 2px solid #f1e0d2;
+        }
+
+        .detail-overlay.active .detail-content {
+            transform: scale(1);
+        }
+
+        .detail-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(192, 108, 80, 0.8);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: background 0.3s;
+        }
+
+        .detail-close:hover {
+            background: rgba(192, 108, 80, 1);
+        }
+
+        .detail-header {
+            height: 250px;
+            background: linear-gradient(135deg, #f8f0e8 0%, #f1e0d2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c06c50;
+            font-size: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .detail-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23c06c50' fill-opacity='0.1' d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        .detail-body {
+            padding: 30px;
+        }
+
+        .detail-name {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #5a3825;
+        }
+
+        .detail-location {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #7d5d4a;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .detail-rating {
+            background-color: #fcf1e5;
+            color: #d4a15e;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .detail-description {
+            margin-bottom: 30px;
+            color: #7d5d4a;
+            line-height: 1.8;
+        }
+
+        .service-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .service-detail {
+            flex: 1;
+            min-width: 200px;
+            background: #f8f0e8;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid #c06c50;
+        }
+
+        .service-detail h4 {
+            color: #5a3825;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .service-detail p {
+            color: #7d5d4a;
+            font-size: 0.95rem;
+        }
+
+        .specialty-section {
+            margin-bottom: 25px;
+        }
+
+        .specialty-section h3 {
+            color: #5a3825;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .specialty-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .specialty-item {
+            background-color: #f1e0d2;
+            color: #7d5d4a;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .call-button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background-color: #c06c50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .call-button:hover {
+            background-color: #a85a42;
+        }
+
+        /* Notification Panel */
+        .notification-btn {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            width: 60px;
+            height: 60px;
+            background: #c06c50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 99;
+            transition: transform 0.3s;
+        }
+
+        .notification-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .notification-panel {
+            position: fixed;
+            bottom: -400px;
+            left: 0;
+            width: 100%;
+            background: white;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.15);
+            z-index: 101;
+            transition: bottom 0.4s ease;
+            padding: 25px;
+            max-height: 85vh;
+            overflow-y: auto;
+            background-color: #fffaf5;
+        }
+
+        .notification-panel.active {
+            bottom: 0;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f1e0d2;
+        }
+
+        .panel-header h2 {
+            font-weight: 600;
+            color: #5a3825;
+        }
+
+        .close-panel {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #7d5d4a;
+            cursor: pointer;
+        }
+
+        .notification-tiles {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .notification-item {
+            background: #f8f0e8;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .notification-icon {
+            width: 50px;
+            height: 50px;
+            background: #f1e0d2;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c06c50;
+            font-size: 1.3rem;
+        }
+
+        .notification-content h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: #5a3825;
+        }
+
+        .notification-content p {
+            font-size: 0.85rem;
+            color: #7d5d4a;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .business-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .detail-header {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-hands logo-icon"></i>
+                <h1>Mehndi<span>Directory</span></h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Filters -->
+    <section class="filters">
+        <div class="filter-container">
+            <div class="filter-group">
+                <label for="location-search">Location</label>
+                <input type="text" id="location-search" class="filter-input" placeholder="Search by city or area...">
+            </div>
+            <div class="filter-group">
+                <label for="service-type">Service Type</label>
+                <select id="service-type" class="filter-input">
+                    <option value="">All Services</option>
+                    <option value="bridal">Bridal Mehndi</option>
+                    <option value="sangeet">Sangeet Mehndi</option>
+                    <option value="arabic">Arabic Designs</option>
+                    <option value="traditional">Traditional Designs</option>
+                    <option value="custom">Custom Designs</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Rating</label>
+                <div class="rating-filter">
+                    <span class="rating-star" data-rating="1">★</span>
+                    <span class="rating-star" data-rating="2">★</span>
+                    <span class="rating-star" data-rating="3">★</span>
+                    <span class="rating-star" data-rating="4">★</span>
+                    <span class="rating-star active" data-rating="5">★</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Grid -->
+    <section class="business-grid" id="business-container">
+        <!-- Business tiles will be inserted here by JavaScript -->
+    </section>
+
+    <!-- Expanded Business Detail -->
+    <div class="detail-overlay" id="detail-overlay">
+        <div class="detail-content">
+            <button class="detail-close" id="detail-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="detail-header">
+                <i class="fas fa-hands"></i>
+            </div>
+            <div class="detail-body">
+                <h2 class="detail-name" id="detail-name">Bridal Henna Art</h2>
+                <div class="detail-location">
+                    <i class="fas fa-map-marker-alt location-icon"></i>
+                    <span id="detail-location">123 Wedding Lane, Mumbai</span>
+                </div>
+                <div class="detail-rating">
+                    <i class="fas fa-star"></i>
+                    <span id="detail-rating">4.9</span>
+                    <span>(142 Reviews)</span>
+                </div>
+                <p class="detail-description" id="detail-description">
+                    Specializing in intricate bridal mehndi designs that tell your love story. 
+                    Our artists use natural henna for long-lasting stains and offer personalized 
+                    design consultations to create the perfect look for your special day.
+                </p>
+                
+                <div class="service-details">
+                    <div class="service-detail">
+                        <h4>Starting Price</h4>
+                        <p>₹5,000 - ₹25,000</p>
+                    </div>
+                    <div class="service-detail">
+                        <h4>Experience</h4>
+                        <p>8+ years</p>
+                    </div>
+                    <div class="service-detail">
+                        <h4>Travel Service</h4>
+                        <p>Available (+₹1,000)</p>
+                    </div>
+                </div>
+                
+                <div class="specialty-section">
+                    <h3>Specialties</h3>
+                    <div class="specialty-list">
+                        <span class="specialty-item">Intricate Bridal Designs</span>
+                        <span class="specialty-item">Personalized Patterns</span>
+                        <span class="specialty-item">Natural Henna</span>
+                        <span class="specialty-item">Fast Application</span>
+                    </div>
+                </div>
+                
+                <a href="tel:+919086124271" class="call-button">
+                    <i class="fas fa-phone"></i> Call +91 9086124271
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Button -->
+    <div class="notification-btn" id="notification-btn">
+        <i class="fas fa-bell"></i>
+        <span class="notification-badge">3</span>
+    </div>
+
+    <!-- Notification Panel -->
+    <div class="notification-panel" id="notification-panel">
+        <div class="panel-header">
+            <h2>Notifications</h2>
+            <button class="close-panel" id="close-panel">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="notification-tiles">
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="notification-content">
+                    <h3>Wedding Season Special</h3>
+                    <p>15% off on bridal packages booked in advance</p>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <div class="notification-content">
+                    <h3>New Design Collection</h3>
+                    <p>Check out our latest fusion mehndi patterns</p>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-hands"></i>
+                </div>
+                <div class="notification-content">
+                    <h3>Appointment Reminder</h3>
+                    <p>Your mehndi session tomorrow at 4 PM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample mehndi businesses data
+        const businesses = [
+            {
+                id: 1,
+                name: "Bridal Henna Art",
+                location: "123 Wedding Lane, Mumbai",
+                rating: 4.9,
+                reviews: 142,
+                description: "Specializing in intricate bridal mehndi designs that tell your love story. Our artists use natural henna for long-lasting stains and offer personalized design consultations to create the perfect look for your special day.",
+                specialties: ["Intricate Bridal Designs", "Personalized Patterns", "Natural Henna", "Fast Application"],
+                price: "₹5,000 - ₹25,000",
+                experience: "8+ years",
+                travel: "Available (+₹1,000)",
+                serviceType: "bridal"
+            },
+            {
+                id: 2,
+                name: "Sangeet Specialists",
+                location: "45 Celebration Road, Delhi",
+                rating: 4.7,
+                reviews: 98,
+                description: "Experts in creating beautiful mehndi designs for sangeet ceremonies. Our designs blend traditional patterns with modern elements for a unique look that complements your festive attire.",
+                specialties: ["Sangeet Designs", "Arm Patterns", "Glitter Accents", "Quick Application"],
+                price: "₹3,000 - ₹15,000",
+                experience: "6+ years",
+                travel: "Available (+₹800)",
+                serviceType: "sangeet"
+            },
+            {
+                id: 3,
+                name: "Arabic Mehndi Masters",
+                location: "78 Design Street, Bangalore",
+                rating: 4.8,
+                reviews: 117,
+                description: "Specialists in contemporary Arabic mehndi designs featuring bold patterns and floral motifs. We focus on creating elegant, symmetrical designs that make a statement.",
+                specialties: ["Arabic Patterns", "Floral Designs", "Bold Outlines", "Symmetrical Art"],
+                price: "₹4,000 - ₹18,000",
+                experience: "7+ years",
+                travel: "Available (+₹900)",
+                serviceType: "arabic"
+            },
+            {
+                id: 4,
+                name: "Traditional Henna House",
+                location: "22 Culture Corner, Jaipur",
+                rating: 4.6,
+                reviews: 85,
+                description: "Preserving the art of traditional Indian mehndi with intricate peacock motifs, paisleys, and detailed patterns that celebrate our cultural heritage.",
+                specialties: ["Traditional Patterns", "Peacock Motifs", "Paisley Designs", "Cultural Elements"],
+                price: "₹3,500 - ₹20,000",
+                experience: "10+ years",
+                travel: "Available (+₹1,200)",
+                serviceType: "traditional"
+            },
+            {
+                id: 5,
+                name: "Custom Mehndi Creations",
+                location: "33 Art Avenue, Kolkata",
+                rating: 4.9,
+                reviews: 132,
+                description: "Creating bespoke mehndi designs tailored to your preferences. Whether you want to incorporate names, dates, or special symbols, we bring your vision to life.",
+                specialties: ["Custom Designs", "Name Incorporation", "Special Symbols", "Personalized Art"],
+                price: "₹4,500 - ₹22,000",
+                experience: "5+ years",
+                travel: "Available (+₹700)",
+                serviceType: "custom"
+            },
+            {
+                id: 6,
+                name: "Festival Henna Experts",
+                location: "9 Celebration Square, Chennai",
+                rating: 4.5,
+                reviews: 76,
+                description: "Providing beautiful mehndi services for festivals like Karva Chauth, Diwali, and Eid. Our quick yet artistic designs are perfect for festive celebrations.",
+                specialties: ["Festival Designs", "Quick Application", "Affordable Packages", "Festive Patterns"],
+                price: "₹500 - ₹5,000",
+                experience: "4+ years",
+                travel: "Available (+₹500)",
+                serviceType: "traditional"
+            }
+        ];
+
+        // DOM Elements
+        const businessContainer = document.getElementById('business-container');
+        const detailOverlay = document.getElementById('detail-overlay');
+        const detailClose = document.getElementById('detail-close');
+        const notificationBtn = document.getElementById('notification-btn');
+        const notificationPanel = document.getElementById('notification-panel');
+        const closePanel = document.getElementById('close-panel');
+        const locationSearch = document.getElementById('location-search');
+        const serviceType = document.getElementById('service-type');
+        const ratingStars = document.querySelectorAll('.rating-star');
+
+        // Initialize the page
+        function initPage() {
+            renderBusinessTiles(businesses);
+            setupEventListeners();
+        }
+
+        // Render business tiles
+        function renderBusinessTiles(businessesArray) {
+            businessContainer.innerHTML = '';
+            
+            businessesArray.forEach(business => {
+                const tile = document.createElement('div');
+                tile.className = 'business-tile';
+                tile.dataset.id = business.id;
+                
+                tile.innerHTML = `
+                    <div class="profile-placeholder">
+                        <i class="fas fa-hands"></i>
+                    </div>
+                    <div class="business-info">
+                        <h3 class="business-name">${business.name}</h3>
+                        <div class="business-location">
+                            <i class="fas fa-map-marker-alt location-icon"></i>
+                            <span>${business.location}</span>
+                        </div>
+                        <div class="rating-badge">
+                            <i class="fas fa-star"></i>
+                            <span>${business.rating}</span>
+                        </div>
+                        <div class="specialty-tags">
+                            ${business.specialties.slice(0, 2).map(specialty => 
+                                `<span class="specialty-tag">${specialty}</span>`
+                            ).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                businessContainer.appendChild(tile);
+            });
+        }
+
+        // Show business details
+        function showBusinessDetails(businessId) {
+            const business = businesses.find(b => b.id === businessId);
+            if (!business) return;
+            
+            // Update detail elements
+            document.getElementById('detail-name').textContent = business.name;
+            document.getElementById('detail-location').textContent = business.location;
+            document.getElementById('detail-rating').textContent = business.rating;
+            document.getElementById('detail-description').textContent = business.description;
+            
+            // Update service details
+            const serviceDetails = document.querySelector('.service-details');
+            serviceDetails.innerHTML = `
+                <div class="service-detail">
+                    <h4>Starting Price</h4>
+                    <p>${business.price}</p>
+                </div>
+                <div class="service-detail">
+                    <h4>Experience</h4>
+                    <p>${business.experience}</p>
+                </div>
+                <div class="service-detail">
+                    <h4>Travel Service</h4>
+                    <p>${business.travel}</p>
+                </div>
+            `;
+            
+            // Update specialties
+            const specialtyList = document.querySelector('.specialty-list');
+            specialtyList.innerHTML = business.specialties.map(specialty => 
+                `<span class="specialty-item">${specialty}</span>`
+            ).join('');
+            
+            // Show overlay
+            detailOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Business tile click
+            businessContainer.addEventListener('click', (e) => {
+                const tile = e.target.closest('.business-tile');
+                if (tile) {
+                    const businessId = parseInt(tile.dataset.id);
+                    showBusinessDetails(businessId);
+                }
+            });
+            
+            // Close detail overlay
+            detailClose.addEventListener('click', () => {
+                detailOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            // Notification button
+            notificationBtn.addEventListener('click', () => {
+                notificationPanel.classList.add('active');
+            });
+            
+            // Close notification panel
+            closePanel.addEventListener('click', () => {
+                notificationPanel.classList.remove('active');
+            });
+            
+            // Location search
+            locationSearch.addEventListener('input', () => {
+                filterBusinesses();
+            });
+            
+            // Service type filter
+            serviceType.addEventListener('change', () => {
+                filterBusinesses();
+            });
+            
+            // Rating filter
+            ratingStars.forEach(star => {
+                star.addEventListener('click', () => {
+                    // Remove active class from all stars
+                    ratingStars.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to clicked star and higher ratings
+                    const rating = parseInt(star.dataset.rating);
+                    for (let i = 0; i < rating; i++) {
+                        ratingStars[i].classList.add('active');
+                    }
+                    
+                    filterBusinesses();
+                });
+            });
+        }
+
+        // Filter businesses
+        function filterBusinesses() {
+            const locationTerm = locationSearch.value.toLowerCase();
+            const serviceTypeValue = serviceType.value;
+            const minRating = document.querySelectorAll('.rating-star.active').length;
+            
+            const filtered = businesses.filter(business => {
+                const locationMatch = business.location.toLowerCase().includes(locationTerm);
+                const serviceMatch = serviceTypeValue ? business.serviceType === serviceTypeValue : true;
+                const ratingMatch = business.rating >= minRating;
+                return locationMatch && serviceMatch && ratingMatch;
+            });
+            
+            renderBusinessTiles(filtered);
+        }
+
+        // Initialize the page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html>
