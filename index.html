@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8439829076102100"
-     crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LDMLSEC5L1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-LDMLSEC5L1');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vivaah Setu - Essential Services</title>
@@ -23,21 +13,20 @@
             font-family: 'Segoe UI', Roboto, Oxygen, sans-serif;
         }
         
-        /* Improved logo styles for better visibility */
+        /* Improved logo styles */
         .logo-img {
-            height: 60px; /* Increased logo size */
+            height: 60px;
             width: auto;
             border-radius: 5px;
-            object-fit: contain; /* Maintain aspect ratio */
+            object-fit: contain;
         }
         
-        /* Adjust header for larger logo */
         header {
             padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(to right, var(--mac-dark), #333);
+            background: linear-gradient(to right, #1d1d1f, #333);
             color: white;
             position: sticky;
             top: 0;
@@ -48,14 +37,14 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 15px; /* Increased gap for better spacing */
+            gap: 15px;
         }
         
         .logo h1 {
-            font-size: 1.5rem; /* Increased title size */
+            font-size: 1.5rem;
             font-weight: 600;
             letter-spacing: 0.5px;
-            white-space: nowrap; /* Prevent wrapping */
+            white-space: nowrap;
         }
         
         :root {
@@ -72,6 +61,7 @@
             --services-color: #3498db;
             --male-gradient: linear-gradient(135deg, #0071e3, #00a2ff);
             --female-gradient: linear-gradient(135deg, #ff4d6d, #ff8fa3);
+            --vip-color: #ff9800;
         }
         
         body {
@@ -102,8 +92,8 @@
             padding: 30px;
             border-radius: 14px;
             text-align: center;
-            max-width: 90%;
             max-width: 500px;
+            width: 90%;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             animation: popup-appear 0.5s ease-out;
         }
@@ -149,7 +139,27 @@
             gap: 8px;
         }
         
-        /* Notice Panel - Bottom Sheet Style */
+        .refresh-btn {
+            background: var(--mac-purple);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+        }
+        
+        .refresh-btn:hover {
+            background: #733d91;
+            transform: scale(1.05);
+        }
+        
+        /* Notice Panel */
         .notice-btn {
             position: fixed;
             bottom: 20px;
@@ -469,13 +479,28 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            background: var(--mac-purple);
             color: white;
             padding: 5px 10px;
             border-radius: 20px;
             font-size: 0.7rem;
             font-weight: 600;
             z-index: 2;
+        }
+        
+        .status-new {
+            background: var(--mac-blue);
+        }
+        
+        .status-verified {
+            background: var(--success);
+        }
+        
+        .status-premium {
+            background: var(--mac-purple);
+        }
+        
+        .status-vip {
+            background: var(--vip-color);
         }
         
         .profile-img {
@@ -855,7 +880,28 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* Responsive adjustments for logo */
+        .status-info {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+        }
+        
+        .status-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        /* Responsive adjustments */
         @media (max-width: 992px) {
             .logo-img {
                 height: 55px;
@@ -906,13 +952,12 @@
         }
         
         @media (max-width: 480px) {
-            /* Mobile-specific adjustments for logo */
             .logo {
                 gap: 10px;
             }
             
             .logo-img {
-                height: 45px; /* Still larger than original */
+                height: 45px;
             }
             
             .logo h1 {
@@ -949,6 +994,12 @@
                 border-top-left-radius: 15px;
                 border-top-right-radius: 15px;
             }
+            
+            .header-controls {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-end;
+            }
         }
         
         @media (min-width: 768px) {
@@ -956,21 +1007,15 @@
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
         }
+        
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
     </style>
 </head>
 <body>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8439829076102100"
-     crossorigin="anonymous"></script>
-<!-- vivaah add -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-8439829076102100"
-     data-ad-slot="8843149918"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
     <!-- Welcome Popup -->
     <div class="popup-overlay" id="welcomePopup">
         <div class="popup-content">
@@ -1014,18 +1059,12 @@
             </div>
             <div class="notice-item">
                 <h3><i class="fas fa-lock"></i> Safety Guidelines</h3>
-                <p><h3>1.Safety Disclaimer</h3></p>
                 <p>Please read and follow these simple guidelines to keep your personal information safe on our platform:</p>
                 <p>Never share financial details.</p>
                 <p>Do not send bank account numbers, credit/debit card details, UPI IDs, or any other money-related information to anyone you meet here.</p>
-                <p><h3>2.Tell us when you connect with someone.</h3></p>
                 <p>As soon as you decide to engage with a match, please inform us.</p>
-                <P>We will then remove their profile to avoid confusion and unnecessary calls.</P>
-                <P><h3>3.Verify every match yourself.</h3></P>
-                <P>We do not run background checks or confirm identities.</P>
-                <P>Always check photos, social profiles, and any other details before you trust or meet someone.</P>
-                <P>By following these steps, you help us keep the community safe and enjoy a worry-free experience.</P>
-                
+                <p>We do not run background checks or confirm identities.</p>
+                <p>Always check photos, social profiles, and any other details before you trust or meet someone.</p>
                 <div class="notice-date"><i class="fas fa-calendar"></i> May 29, 2025</div>
             </div>
             <div class="notice-item">
@@ -1041,14 +1080,20 @@
         </div>
     </div>
     
-    <!-- Header with improved logo -->
+    <!-- Header -->
     <header>
         <div class="logo">
+            <!-- Fixed logo reference -->
             <img class="logo-img" src="vslogo.png" alt="Vivaah Setu Logo">
             <h1>Vivaah Setu</h1>
         </div>
-        <div class="profile-count">
-            <i class="fas fa-users"></i> <span id="profileCounter">128</span>
+        <div class="header-controls">
+            <div class="profile-count">
+                <i class="fas fa-users"></i> <span id="profileCounter">0</span>
+            </div>
+            <button class="refresh-btn" id="refreshBtn">
+                <i class="fas fa-sync-alt"></i> Refresh
+            </button>
         </div>
     </header>
     
@@ -1080,7 +1125,6 @@
                     <label for="yearFrom">Year From</label>
                     <select id="yearFrom">
                         <option value="any">Any Year</option>
-                        <!-- Options will be populated by JavaScript -->
                     </select>
                 </div>
                 
@@ -1088,7 +1132,6 @@
                     <label for="yearTo">Year To</label>
                     <select id="yearTo">
                         <option value="any">Any Year</option>
-                        <!-- Options will be populated by JavaScript -->
                     </select>
                 </div>
                 
@@ -1096,7 +1139,7 @@
                     <label for="maritalStatus">Marital Status</label>
                     <select id="maritalStatus">
                         <option value="any">Any Status</option>
-                        <option value="never">Unmarried</option>  <!-- Changed from Never Married -->
+                        <option value="never">Unmarried</option>
                         <option value="divorced">Divorced</option>
                         <option value="widowed">Widowed</option>
                     </select>
@@ -1130,7 +1173,6 @@
                     </select>
                 </div>
                 
-                <!-- Caste Filter -->
                 <div class="filter-group">
                     <label for="caste">Caste</label>
                     <select id="caste">
@@ -1145,8 +1187,8 @@
                         <option value="gujjar">Gujjar</option>
                         <option value="kurmi">Kurmi</option>
                         <option value="maratha">Maratha</option>
-                        <option value="sikh">Sikh</option>                     <!-- Added -->
-                        <option value="kashmiri_pandit">Kashmiri Pandit</option>  <!-- Added -->
+                        <option value="sikh">Sikh</option>
+                        <option value="kashmiri_pandit">Kashmiri Pandit</option>
                         <option value="other">Other</option>
                     </select>
                 </div>
@@ -1171,10 +1213,31 @@
             <div class="section-title">
                 <i class="fas fa-user-friends"></i>
                 <h3>Featured Profiles</h3>
+                <div class="status-info">
+                    <div class="status-item">
+                        <div class="status-color" style="background: var(--mac-blue);"></div>
+                        <span>New</span>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-color" style="background: var(--success);"></div>
+                        <span>Verified</span>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-color" style="background: var(--mac-purple);"></div>
+                        <span>Premium</span>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-color" style="background: var(--vip-color);"></div>
+                        <span>VIP</span>
+                    </div>
+                </div>
             </div>
             
             <div class="profiles-grid" id="profilesContainer">
-                <!-- Profile cards will be generated by JavaScript -->
+                <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #666;">
+                    <div class="spinner"></div>
+                    <p>Loading profiles...</p>
+                </div>
             </div>
         </section>
     </div>
@@ -1198,6 +1261,7 @@
             <a href="https://www.instagram.com/jasrotiaravi?igsh=MTAxMG1hOWN2YW1ucw==" target="_blank" class="fab-button" title="Follow on Instagram">
                 <i class="fab fa-instagram"></i>
             </a>
+            <!-- Fixed services.html link -->
             <a href="services.html" class="fab-button" title="Other Essential Services">
                 <i class="fas fa-concierge-bell"></i>
             </a>
@@ -1218,516 +1282,11 @@
     </footer>
     
     <script>
-        // Enhanced profile data with caste and gender information
-        const profiles = [
-          {
-id: 5,
-name:"Ms. Taniya Rajput",
-dob:"10/16/1997",
-gender:"F",
-location:"Jammu",
-occupation:"Working as a teacher ",
-education:"Matric k.v. No 2 jammu cantt  B. Com, M. Com and B.Ed  (currently pursuing Masters in psychology)",
-manglik:"Non-Manglik",
-employment:"Private",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",  // Changed
-phone: "+919469705160",
-about: "Own house Preference :- Defense, Civil, Businessman.",
-family:"Father :- Raghubir singh (CISF) Bangalore , Mother :- Homemaker Brother :- 2  ",
-status: "New"
-},
-         {
-id: 2,
-name:"Ms. Priyal Jamwal",
-dob:"7/11/1997",
-gender:"F",
-location:"Jammu",
-occupation:"Working as a teacher in JK Public school ",
-education:"M.A , B.ED and Diploma in Computers (Currently pursuing masters degree in psychology)  ",
-manglik:"Non-Manglik",
-employment:"Private",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",  // Changed
-phone: "+91 8492021343",
-about: "Currently pursuing masters degree in psychology",
-family:"D/o :- Dewakar Singh Contact 8492021343",
-status:" New"
-},
-{
-id: 3,
-name:"Ms. Thakur",
-dob:"02/22/1990",
-gender:"F",
-location:"Unknown",
-occupation:"Working in a state University as Assistant professor on contract basis",
-education:"Ph.D ",
-manglik:"Non-Manglik",
-employment:"Private",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",  // Changed
-phone: "+91 9906350151",
-about: "Height: 5'2 Inch, ",
-family:"Father: Sr. Lecturer, Mother: Homemaker , Brother: Govt job (married)",
-status: "New"
-},
-          {
-id: 4,
-name:"Ms. Bandral",
-dob:"1993-02-12",
-gender:"F",
-location:"Jammu, Doda",
-occupation:"Presently offering Home Tuitions",
-education:"SCHOOLING- KV NO 2 JAMMU  BSC MEDICAL- PARADE COLLEGE FOR WOMEN JAMMU  B Ed - MIER COLLEGE  MA (PUBLIC POLICY & PUBLIC ADMINISTRATION)- CENTRAL UNIVERSITY JAMMU ",
-manglik:"Non-Manglik",
-employment:"Private",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",  // Changed
-phone:"+91 9697548229",
-about:"I love Teaching ",
-family:"FATHER- ARMY SUBEDAR MAJ (Retd)MOTHER - HOUSE WIFE ",
-status:" New"
-},
-            {
-id: 5,
-name:"Mr.Tarun Singh",
-dob:"04/06/1983",
-gender:"M",
-location:"Jammu",
-occupation:"Occupation - Business (Car Bazaar)",
-education:"Unknown",
-manglik:"Non-Manglik",
-employment:"Business",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Divorced",
-phone:"+917889535767",
-about:"Owner of Business (Car Bazaar)",
-family:"Mother-Retired Gazetted officer (Education department)Siblings- 1 sister Married",
-status:"New"
-},
-               {
-id: 6,
-name:"Ms. Chitrangni Singh Sambyal",
-dob:"07/31/1996",
-gender:"F",
-location:"Jammu",
-occupation:"central government as a junior scientist/ project manager. National institute of Immunology ",
-education:"M.Sc Microbiology (Pune University) B.Sc (Hons ) University of Delhi ",
-manglik:"Non-Manglik",
-employment:"Government",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",  // Changed
-phone:"+91 9682546012",
-about:"HEIGHT - 5' 7 inch Central government as a junior scientist/ project manager.National institute of Immunology",
-family:"No Information yet",
-status:"New"
-},
-{
-id: 7,
-name:"Ms. Anjali Thakur",
-dob:"03/26/1983",
-gender:"F",
-location:"Jammu",
-occupation:"Working as Teacher, Govt  Middle School, Batote.",
-education:"Matric - DAV School, Panchkula , 10+2 St. Peter Hr secondary School Jammu.B. Sc. (Electronics) GGM College, Jammu.M. Sc ( Electronics), Jammu University.B.Ed  Govt College for Education Canal Road, Jammu.",
-manglik:"Non-Manglik",
-employment:"Private",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",  // Changed
-phone: "+917006867752",
-about: "ToB: 1 am. Height: 5'4 inch Own House",
-family:"Mother: Smt. Mom Thakur (Homemaker). One Brother: self employed Two sisters: 1. Principal in the School Education Department Jammu and brother in law in Civil Secretariat.2. Sr. Lecturer in the School Education Department. Contact no.7006867752, 9419694638.",
-status: "New"
-},
-{
-id: 8,
-name:"Ms. Bhawani Jamwal",
-dob:"04/26/1995",
-gender:"F",
-location:"Nurpur, Kangra Himachal parades",
-occupation:"Unknown",
-education:"Matric and 10+2 - M.C.S. Raja Ka Bagh, Jassur Qualification - B.Sc. and M.Sc from Sri Guru Gobind Singh College, Chandigarh  D.El.Ed. from Sharan College Of Education, Kangra B.Ed. from ICDEOL, Shimla.  Qualified HPTET for D.El.Ed and TGT Medical CTET Paper 1 & 2  ",
-manglik:"Non-Manglik",
-employment:"Private",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",  // Changed
-phone: "+91 9805609092",
-about: "Height - 5'4 Inch",
-family:"Father - Manjit Singh Jamwal (Retired from Indian Army), Mother - Kurmila Devi (Home maker), Sister - Manisha (Married)",
-status: "New"
-},
-{
-id: 9,
-name:"Ms. Aradhya Rajput (Chandel)",
-dob:"03/01/1992",
-gender:"F",
-location:"Hiranagar kathua Jammu",
-occupation:"Physiotherapist at Amritsar cantonment Board.",
-education:"Unknown",
-manglik:"Manglik",
-employment:"Government",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",  // Changed
-phone: "+91 8825096099",
-about: "Time: 15: 20 hrs , Height: 5:6'",
-family:"Father: Contractor, Mother : Retired Air force Teacher. Preference (Govt/pvt/Business)",
-status: "New"
-},
-{
-id: 10,
-name:"Ms. Shitanshu Thakur",
-dob:"08/19/1996",
-gender:"F",
-location:"Mukerian, Punjab",
-occupation:"Software Engineer at Bank of America",
-education:"10th: Mount Carmel School, Gaggal Graduation: B.Tech in Information Technology, SRM University, Kattankulathur Post-Graduation: MS in Business Analytics, University of California, San Diego",
-manglik:"Manglik",
-employment:"Private",
-nationality:"NRI",
-caste:"Rajput",
-maritalStatus:"Unmarried",  // Changed
-phone: "+91 7018512130",
-about: "Height: 5’2 Inch Complexion: Fair , Gotar  Gotam presently at Location: Dallas, America",
-family:"Father:  Chander Shekhar Thakur (Kharwal), Deputy Commandant in BSF, Mother:  Vandana  Thakur  (Manhas), Lecturer in a Government School, Brother: Shaurya Thakur ,Working at Capgemini",
-status: "New"
-},
-{
-id: 11,
-name:"Ms. Nitika Chib",
-dob:"08/18/1994",
-gender:"F",
-location:"Jammu",
-occupation:"Trying for the govt. job",
-education:"MA English, B.Ed",
-manglik:"Non-Manglik",
-employment:"Private",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",  // Changed
-phone: "+91 919469230792",
-about: "Time of Birth 12:10 PM, Hight: 5'5 Inch Preference- Army Officer, Air force, Navy, Education or Banking profession",
-family:"Father- Capt. Nasib Singh Chib, Mother- Home maker, Sibling- Elder brother in abroad ",
-status: "New"
-},
-{
-id: 12,
-name:"Varun Sambyal",
-dob:"01/23/1986",
-gender:"M",
-location:"Kheri Mandi Samba",
-occupation:"Pilot, Global Vectra helicopter corporation Mumbai",
-education:"Unknown",
-manglik:"Non-Manglik",
-employment:"Private",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Divorced",
-phone: "+91 8803231447",
-about: "(Ex LT comdr Navy) ",
-family:"Father: Senior Audit Officer (Retd.)",
-status: "New"
-},
-{
-id: 13,
-name:"Varun Gupta ",
-dob:"11/12/1997",
-gender:"M",
-location:"Jammu",
-occupation:"Bussiness",
-education:"B.E. in Electrical engineering ",
-manglik:"Non-Manglik",
-employment:"Business",
-nationality:"Indian",
-caste:"Bania",
-maritalStatus:"Unmarried",
-phone: "+919086647005",
-about: "Crockery Shop in Raj Tilak Road,Purani Mandi, Jammu ",
-family:"2--Sisters,Both are Married",
-status: "Verified"
-},
-{
-id: 14,
-name:"Dr. Kiran Bala",
-dob:"06/23/1978",
-gender:"F",
-location:"Jammu Kathua",
-occupation:"Working as Medical Officer Kathua",
-education:"MBBS",
-manglik:"Non-Manglik",
-employment:"Private",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Divorced",
-phone: "+91 7889790271",
-about: "Height  5'.4'a Son 5-6 years Own House at Kathua",
-family:"Daughter of Mahant Singh ",
-status: "New"
-},
-{
-id: 15,
-name:"Mr. Amit Sambya",
-dob:"09/15/1987",
-gender:"M",
-location:"Jammu, Samba",
-occupation:"supervisor in Govt. Of jammu & kashmir social welfare department",
-education:"graduation (B.A), ADCA (Advance diploma in computer application)",
-manglik:"Non-Manglik",
-employment:"Government",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",
-phone: "+91 9149509325",
-about: "I am a supervisor in the Government of Jammu and Kashmir’s Social Welfare Department.",
-family:"S/O Late Sh. charanjit singh, Siblings: three sisters & two brothers, All are married. Brothers live in separately in different home.",
-status: "New"
-},
-{
-id: 16,
-name:"Mr. Jamwal ",
-dob:"01/02/1992",
-gender:"M",
-location:"Jammu",
-occupation:"Working in MNC (THALES) as Team Lead",
-education:"B.Tech (Electronics and Communication)",
-manglik:"Non-Manglik",
-employment:"Private",
-nationality:"NRI",
-caste:"Rajput",
-maritalStatus:"Unmarried",
-phone: "+91 9419883307",
-about: "Presently working in (Melbourne) Australia  ",
-family:"Father- retired gazetted officer, Mother- Working, Sister and brother in law are IT professionals",
-status: "New"
-},
-{
-id: 17,
-name:"Mr. Jamwal",
-dob:"12/27/1996",
-gender:"M",
-location:"Jammu, Gandhi Nagar",
-occupation:"I.T. Professional ",
-education:"B.tech",
-manglik:"Non-Manglik",
-employment:"Private",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",
-phone: "+91 7006062293",
-about: "Height. 6'.2 inch, ",
-family:"Work Place: Hyderabad, Package: 20 lac , Preference. B.TECH",
-status: "New"
-},
-{
-id: 18,
-name:"Mr. Dhreeshit Jasrotia",
-dob:"12/12/1985",
-gender:"M",
-location:"Jammu",
-occupation:"Own Grocery Store at Sainik Colony, Jammu.",
-education:"Graduation",
-manglik:"Non-Manglik",
-employment:"Business",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",
-phone: "+91 9419110218",
-about: "Height: 5 feet 7 inches, Place of Birth: Samba, J&K, Profession: Own Grocery Store at Sainik Colony, Jammu.R/o Sainik Colony, Jammu (Originally from Kathua District).",
-family:"Father: Retired Gazzeted Officer (Civil Sectt)Mother: House Wife, Elder Brother (married): Own medical Store at Sainik Colony, Jammu.Sister in Law: Ph.D (Lecturer), Younger Brother: Working in the Sports Council.",
-status: "New"
-},
-{
-id: 19,
-name:"Mr. Sumit Jamwal",
-dob:"06/27/1986",
-gender:"M",
-location:"Jammu",
-occupation:"Unknown",
-education:"Msc",
-manglik:"Non-Manglik",
-employment:"Private",
-nationality:"NRI",
-caste:"Rajput",
-maritalStatus:"Divorced",
-phone: "+91 9220433116",
-about: "Height: 6 ft , Permanent Resident, Lives in BC, Canada. ",
-family:"Father - Jagan Singh Jamwal - retd Merchant Navy, Mother - Parmil Jamwal, Sister - Hemani Jamwal - Married, settled in the US",
-status: "New"
-},
-{
-id: 20,
-name:"Dr. Damini Singh",
-dob:"11/18/1991",
-gender:"F",
-location:"Jammu",
-occupation:"Working in Air Force",
-education:"MBBS, MD",
-manglik:"Non-Manglik",
-employment:"Government",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",
-phone: "+91 9419191136",
-about: "Ht.:- 5' 4 inchWorking in Air Force ",
-family:"Father : businessman, Mother : home maker, R/o Channi Himmat Jammu",
-status: "New"
-},
-{
-id: 21,
-name:"Sonam Jasrotia",
-dob:"01/01/1992",
-gender:"F",
-location:"Jammu, Kathua",
-occupation:"Major M N S",
-education:"BSc Nursing from AFMC Pune",
-manglik:"Non-Manglik",
-employment:"Private",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",
-phone: "+91 9419245595",
-about: "Profession: Major M N S",
-family:"Sibling: one elder sister (engg) CSE, Serving in an MNC(married)",
-status: "New"
-},
-{
-id: 22,
-name:"Divya Aman Jamwa",
-dob:"03/24/1996",
-gender:"M",
-location:"Jammu",
-occupation:"Account Asistant in Panchayat",
-education:"Elect Engineer",
-manglik:"Non-Manglik",
-employment:"Government",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",
-phone: "+91 9906201038",
-about: "S/O M S Jamwal",
-family:"R/O Nitco Lane, Greater Kailash Jammu",
-status: "New"
-},
-{
-id: 23,
-name:"Rashmi Jamwal",
-dob:"02/27/1987",
-gender:"F",
-location:"Karnal (Haryana)",
-occupation:"Unknown",
-education:"Bachelors of Physiotherapy (BPT) from Dehradun",
-manglik:"Non-Manglik",
-employment:"Private",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Divorced",
-phone: "+91 9419833026",
-about: "Time of birth Timings-12:15pm",
-family:"One younger brother is Dentist and married",
-status: "New"
-},
-{
-id: 24,
-name:"Ms Shalini Thakur",
-dob:"12/30/1993",
-gender:"F",
-location:"Palampur Himachal Pradesh ",
-occupation:"Project Manager in MNC Chandigarh.",
-education:"Convent educated-  B Tech ( IT) -  PG in Cyber Information- pursuing MBA from PU",
-manglik:"Non-Manglik",
-employment:"Private",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",
-phone: "+918837749184.",
-about: "Height- 5’-2 Inch, Salary- 21.50 Lacs PA",
-family:"FATHER- Sh. R P Rana- working as Manager in NHPC ( PSU)MOTHER- Ms Meena Rana- House wife, BROTHER- B. Tech (Mech) from Thapar- Workjng as Project Associate in CSIO Chandigarh.",
-status: "New"
-},
-{
-id: 25,
-name:"Ms. Cicly Slathia",
-dob:"07/11/1983",
-gender:"F",
-location:"Jammu",
-occupation:"APS Samba",
-education:"MA English",
-manglik:"Non-Manglik",
-employment:"Private",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Divorced",
-phone: "+919596944052",
-about: "R/o Sainik Colony Jammu",
-family:"D/o Sh. Darbàr Singh",
-status: "New"
-},
-{
-id: 26,
-name:"Ms. Sofia Chib",
-dob:"01/18/1995",
-gender:"F",
-location:"Jammu",
-occupation:"Working in a Private School as Centre Head ",
-education:"MA B.ed,",
-manglik:"Non-Manglik",
-employment:"Private",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",
-phone: "+91 7006374905",
-about: "I love Teaching ",
-family:"Brother Working in Canada, Mother House Maker.",
-status: "New"
-},
-{
-id: 27,
-name:"Komal Manhas",
-dob:"01/01/1994",
-gender:"F",
-location:"Jammu",
-occupation:"B.Sc Nursing",
-education:"GNM, nursing",
-manglik:"Non-Manglik",
-employment:"Government",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",
-phone: "+91 7051968910",
-about: "Color fair, Ht.:- 5' 2 inch",
-family:"Father :-Tarsem singh (Master) Mother :- House wife.Brother :- Phd in agriculture",
-status: "New"
-},
-{
-id: 28,
-name:"Ms. Reshm",
-dob:"11/7/1996",
-gender:"F",
-location:"Jammu, Kathua",
-occupation:"Unknown",
-education:"MSc. Botany",
-manglik:"Non-Manglik",
-employment:"Private",
-nationality:"Indian",
-caste:"Rajput",
-maritalStatus:"Unmarried",
-phone: "+919419152311",
-about: "No information",
-family:"Father: Dr Karan Singh (Sr. Lecturer) Mother: Madhu Sambyal (Assistant secretary, JKBOSE), Brother: Engineer (MNC Bangalore)",
-status: "New"
-},
-
-            
-            
-        ];
+        // Google Sheets URL
+        const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSeW7Lt-SnVNZCXkxpDRi-IXEEnvg--jA1YU8zGQsAnTQlZnGnZjglZIzaUpy4MQIEAZJajsmowQRg_/pub?gid=803307424&single=true&output=csv";
+        
+        // Global profiles array
+        let profiles = [];
         
         // DOM Elements
         const welcomePopup = document.getElementById('welcomePopup');
@@ -1747,32 +1306,134 @@ status: "New"
         const loadingSpinner = document.getElementById('loadingSpinner');
         const yearFromSelect = document.getElementById('yearFrom');
         const yearToSelect = document.getElementById('yearTo');
+        const refreshBtn = document.getElementById('refreshBtn');
+        
+        // Function to fetch data from Google Sheets
+        async function fetchProfiles() {
+            try {
+                const response = await fetch(SHEET_URL);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const csvData = await response.text();
+                return parseCSV(csvData);
+            } catch (error) {
+                console.error('Error fetching profiles:', error);
+                showError("Failed to load profiles. Please try again later.");
+                return [];
+            }
+        }
+        
+        // Robust CSV parser
+        function parseCSV(csv) {
+            const lines = csv.split('\n').filter(line => line.trim() !== '');
+            if (lines.length === 0) return [];
+            
+            // Remove BOM if present
+            if (lines[0].charCodeAt(0) === 0xFEFF) {
+                lines[0] = lines[0].substring(1);
+            }
+            
+            const headers = lines[0].split(',').map(header => header.trim());
+            const result = [];
+            
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+                
+                // Handle commas within fields
+                const values = [];
+                let current = '';
+                let inQuotes = false;
+                
+                for (let j = 0; j < line.length; j++) {
+                    const char = line[j];
+                    
+                    if (char === '"') {
+                        inQuotes = !inQuotes;
+                    } else if (char === ',' && !inQuotes) {
+                        values.push(current.trim());
+                        current = '';
+                    } else {
+                        current += char;
+                    }
+                }
+                values.push(current.trim());
+                
+                // Pad values to match headers length
+                while (values.length < headers.length) {
+                    values.push('');
+                }
+                
+                // Create profile object
+                const profile = {};
+                for (let j = 0; j < headers.length; j++) {
+                    profile[headers[j]] = values[j] || '';
+                }
+                result.push(profile);
+            }
+            
+            return result;
+        }
         
         // Function to format date as DD/MM/YYYY
         function formatDOB(dobString) {
-            const date = new Date(dobString);
-            const day = String(date.getDate()).padStart(2, '0');
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const year = date.getFullYear();
-            return `${day}/${month}/${year}`;
+            if (!dobString || dobString.trim() === '') return 'N/A';
+            try {
+                const date = new Date(dobString);
+                if (isNaN(date)) return dobString; // Return original if invalid
+                
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            } catch (e) {
+                return dobString;
+            }
         }
         
         // Initialize the page
-        function initPage() {
-            // Set profile count
-            profileCounter.textContent = profiles.length;
-            
-            // Generate profile cards
-            renderProfiles(profiles);
-            
+        async function initPage() {
             // Populate year selects
             populateYearSelects();
+            
+            // Fetch and render profiles
+            await loadProfiles();
+        }
+        
+        // Load profiles with error handling
+        async function loadProfiles() {
+            try {
+                profiles = await fetchProfiles();
+                
+                // Filter out invalid profiles
+                profiles = profiles.filter(profile => {
+                    const name = profile['Name'] || '';
+                    const gender = profile['Gender ( M for Male and F or female)'] || '';
+                    const contact = profile['Contact detail add only one number with prefix +91'] || '';
+                    
+                    return name.trim() !== '' && name.trim() !== 'N/A' && 
+                           gender.trim() !== '' && 
+                           contact.trim() !== '' && contact.trim() !== 'N/A';
+                });
+                
+                // Set profile count
+                profileCounter.textContent = profiles.length;
+                
+                // Render profiles
+                renderProfiles(profiles);
+            } catch (error) {
+                console.error('Error loading profiles:', error);
+                showError("Failed to load profiles. Please try refreshing.");
+            }
         }
         
         // Populate year dropdowns
         function populateYearSelects() {
             const currentYear = new Date().getFullYear();
             const startYear = 1950;
+            
+            // Clear existing options
+            yearFromSelect.innerHTML = '<option value="any">Any Year</option>';
+            yearToSelect.innerHTML = '<option value="any">Any Year</option>';
             
             for (let year = currentYear; year >= startYear; year--) {
                 const optionFrom = document.createElement('option');
@@ -1791,12 +1452,44 @@ status: "New"
             yearToSelect.value = 2000;
         }
         
+        // Get status information
+        function getStatusInfo(approvalValue) {
+            // Default to '0' if invalid
+            const statusCode = ['0','1','2','3'].includes(approvalValue) ? approvalValue : '0';
+            
+            let statusText, statusClass;
+            
+            switch(statusCode) {
+                case '0': 
+                    statusText = 'New';
+                    statusClass = 'status-new';
+                    break;
+                case '1':
+                    statusText = 'Verified';
+                    statusClass = 'status-verified';
+                    break;
+                case '2':
+                    statusText = 'Premium';
+                    statusClass = 'status-premium';
+                    break;
+                case '3':
+                    statusText = 'VIP';
+                    statusClass = 'status-vip';
+                    break;
+                default:
+                    statusText = 'New';
+                    statusClass = 'status-new';
+            }
+            
+            return { statusText, statusClass };
+        }
+        
         // Render profile cards
         function renderProfiles(profilesToRender) {
             const container = document.getElementById('profilesContainer');
             container.innerHTML = '';
             
-            if (profilesToRender.length === 0) {
+            if (!profilesToRender || profilesToRender.length === 0) {
                 container.innerHTML = `
                     <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #666;">
                         <i class="fas fa-user-times" style="font-size: 3rem; margin-bottom: 20px;"></i>
@@ -1811,35 +1504,34 @@ status: "New"
                 const profileCard = document.createElement('div');
                 profileCard.className = 'profile-card';
                 
-                // Status badge based on profile status
-                let badgeClass = '';
-                if (profile.status === "Verified") badgeClass = 'background: var(--success);';
-                if (profile.status === "Premium") badgeClass = 'background: var(--mac-purple);';
-                if (profile.status === "New") badgeClass = 'background: var(--mac-blue);';
-                
                 // Determine gender-based background
-                const genderClass = profile.gender === 'M' ? 'male-bg' : 'female-bg';
+                const gender = profile['Gender ( M for Male and F or female)'] || '';
+                const genderClass = gender.toUpperCase() === 'M' ? 'male-bg' : 'female-bg';
+                
+                // Get status information
+                const approvalValue = profile['approval'] || '0';
+                const { statusText, statusClass } = getStatusInfo(approvalValue);
                 
                 profileCard.innerHTML = `
-                    <div class="profile-badge" style="${badgeClass}">${profile.status}</div>
+                    <div class="profile-badge ${statusClass}">${statusText}</div>
                     <div class="profile-img ${genderClass}">
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="profile-info">
-                        <div class="profile-name">${profile.name}</div>
+                        <div class="profile-name">${profile.Name || 'N/A'}</div>
                         <div class="profile-detail">
-                            <i class="fas fa-birthday-cake"></i> ${formatDOB(profile.dob)}
+                            <i class="fas fa-birthday-cake"></i> ${formatDOB(profile['Date of Birth'])}
                         </div>
                         <div class="profile-detail">
-                            <i class="fas fa-map-marker-alt"></i> ${profile.location}
+                            <i class="fas fa-map-marker-alt"></i> ${profile['Place of birth'] || 'N/A'}
                         </div>
                         <div class="profile-detail">
-                            <i class="fas fa-user-tag"></i> ${profile.caste}
+                            <i class="fas fa-user-tag"></i> ${profile.Caste || 'N/A'}
                         </div>
                         <div class="profile-detail">
-                            <i class="fas fa-heart"></i> ${profile.maritalStatus}
+                            <i class="fas fa-heart"></i> ${profile['Marital Status'] || 'N/A'}
                         </div>
-                        <button class="call-btn" onclick="callProfile('${profile.phone}')">
+                        <button class="call-btn" onclick="callProfile('${profile['Contact detail add only one number with prefix +91'] || ''}')">
                             <i class="fas fa-phone"></i> Call
                         </button>
                     </div>
@@ -1882,27 +1574,35 @@ status: "New"
                 
                 const filtered = profiles.filter(profile => {
                     // Get birth year from DOB
-                    const birthYear = new Date(profile.dob).getFullYear();
+                    const dob = profile['Date of Birth'];
+                    let birthYear = 0;
+                    if (dob) {
+                        try {
+                            const date = new Date(dob);
+                            if (!isNaN(date)) {
+                                birthYear = date.getFullYear();
+                            }
+                        } catch (e) {
+                            birthYear = 0;
+                        }
+                    }
                     
                     // Determine gender for search
                     let genderMatch = true;
+                    const gender = (profile['Gender ( M for Male and F or female)'] || '').toUpperCase();
                     if (searchFor === 'bride') {
-                        genderMatch = profile.gender === 'F';
+                        genderMatch = gender === 'F';
                     } else if (searchFor === 'groom') {
-                        genderMatch = profile.gender === 'M';
+                        genderMatch = gender === 'M';
                     }
                     
                     // Map marital status values
-                    let maritalValue = "";
-                    switch(profile.maritalStatus) {
-                        case "Unmarried": maritalValue = "never"; break;
-                        case "Divorced": maritalValue = "divorced"; break;
-                        case "Widowed": maritalValue = "widowed"; break;
-                    }
+                    let maritalValue = profile['Marital Status'] || '';
+                    maritalValue = maritalValue.toLowerCase();
                     
                     // Check location
-                    const locationMatch = locationInput === '' || 
-                        profile.location.toLowerCase().includes(locationInput);
+                    const location = (profile['Place of birth'] || '').toLowerCase();
+                    const locationMatch = locationInput === '' || location.includes(locationInput);
                     
                     // Check each filter condition
                     return genderMatch &&
@@ -1910,10 +1610,10 @@ status: "New"
                            (yearFrom === 'any' || birthYear >= parseInt(yearFrom)) &&
                            (yearTo === 'any' || birthYear <= parseInt(yearTo)) &&
                            (maritalStatus === 'any' || maritalValue === maritalStatus) &&
-                           (manglik === 'any' || profile.manglik.toLowerCase() === manglik.toLowerCase()) &&
-                           (employment === 'any' || profile.employment.toLowerCase() === employment.toLowerCase()) &&
-                           (nationality === 'any' || profile.nationality.toLowerCase() === nationality.toLowerCase()) &&
-                           (caste === 'any' || profile.caste.toLowerCase() === caste.toLowerCase());
+                           (manglik === 'any' || (profile['Manglik Status'] || '').toLowerCase() === manglik.toLowerCase()) &&
+                           (employment === 'any' || (profile['Employment type'] || '').toLowerCase() === employment.toLowerCase()) &&
+                           (nationality === 'any' || (profile.Nationality || '').toLowerCase() === nationality.toLowerCase()) &&
+                           (caste === 'any' || (profile.Caste || '').toLowerCase() === caste.toLowerCase());
                 });
                 
                 // Update profile counter
@@ -1929,8 +1629,13 @@ status: "New"
         
         // Show detailed profile modal
         function showProfileModal(profile) {
-            // Generate modal content
-            const genderClass = profile.gender === 'M' ? 'modal-male-bg' : 'modal-female-bg';
+            // Determine gender-based background
+            const gender = profile['Gender ( M for Male and F or female)'] || '';
+            const genderClass = gender.toUpperCase() === 'M' ? 'modal-male-bg' : 'modal-female-bg';
+            
+            // Get status information
+            const approvalValue = profile['approval'] || '0';
+            const { statusText, statusClass } = getStatusInfo(approvalValue);
             
             modalContent.innerHTML = `
                 <div class="close-modal" id="closeModal">
@@ -1941,10 +1646,11 @@ status: "New"
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="modal-header-content">
-                        <h2 class="modal-name">${profile.name}</h2>
-                        <p class="modal-tagline">${profile.occupation} | ${profile.location}</p>
+                        <h2 class="modal-name">${profile.Name || 'N/A'}</h2>
+                        <div class="profile-badge ${statusClass}" style="display: inline-block; margin-left: 10px;">${statusText}</div>
+                        <p class="modal-tagline">${profile.Occupation || ''} | ${profile['Place of birth'] || ''}</p>
                         <div class="modal-contact">
-                            <button class="contact-btn" onclick="callProfile('${profile.phone}')">
+                            <button class="contact-btn" onclick="callProfile('${profile['Contact detail add only one number with prefix +91'] || ''}')">
                                 <i class="fas fa-phone"></i> Call
                             </button>
                             <button class="contact-btn" onclick="alert('Message feature coming soon!')">
@@ -1959,23 +1665,23 @@ status: "New"
                         <div class="modal-details">
                             <div class="modal-detail">
                                 <div class="detail-label">Date of Birth:</div>
-                                <div class="detail-value">${formatDOB(profile.dob)}</div>
+                                <div class="detail-value">${formatDOB(profile['Date of Birth'])}</div>
                             </div>
                             <div class="modal-detail">
                                 <div class="detail-label">Marital Status:</div>
-                                <div class="detail-value">${profile.maritalStatus}</div>
+                                <div class="detail-value">${profile['Marital Status'] || 'N/A'}</div>
                             </div>
                             <div class="modal-detail">
                                 <div class="detail-label">Manglik:</div>
-                                <div class="detail-value">${profile.manglik}</div>
+                                <div class="detail-value">${profile['Manglik Status'] || 'N/A'}</div>
                             </div>
                             <div class="modal-detail">
                                 <div class="detail-label">Nationality:</div>
-                                <div class="detail-value">${profile.nationality}</div>
+                                <div class="detail-value">${profile.Nationality || 'N/A'}</div>
                             </div>
                             <div class="modal-detail">
                                 <div class="detail-label">Caste:</div>
-                                <div class="detail-value">${profile.caste}</div>
+                                <div class="detail-value">${profile.Caste || 'N/A'}</div>
                             </div>
                         </div>
                     </div>
@@ -1985,27 +1691,27 @@ status: "New"
                         <div class="modal-details">
                             <div class="modal-detail">
                                 <div class="detail-label">Education:</div>
-                                <div class="detail-value">${profile.education}</div>
+                                <div class="detail-value">${profile['Highest Education'] || 'N/A'}</div>
                             </div>
                             <div class="modal-detail">
                                 <div class="detail-label">Occupation:</div>
-                                <div class="detail-value">${profile.occupation}</div>
+                                <div class="detail-value">${profile.Occupation || 'N/A'}</div>
                             </div>
                             <div class="modal-detail">
                                 <div class="detail-label">Employment:</div>
-                                <div class="detail-value">${profile.employment}</div>
+                                <div class="detail-value">${profile['Employment type'] || 'N/A'}</div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="modal-section">
                         <h3>About Me</h3>
-                        <p>${profile.about}</p>
+                        <p>${profile['Something about you'] || 'No information provided'}</p>
                     </div>
                     
                     <div class="modal-section">
-                        <h3>Family Details</h3>
-                        <p>${profile.family}</p>
+                        <h3>Family Background</h3>
+                        <p>${profile['Family Background'] || 'No information provided'}</p>
                     </div>
                 </div>
             `;
@@ -2019,7 +1725,7 @@ status: "New"
             });
         }
         
-        // Call profile function with FIXED functionality
+        // Call profile function
         function callProfile(phone) {
             try {
                 if (!phone || phone.trim() === '') {
@@ -2038,6 +1744,17 @@ status: "New"
                 console.error('Call failed:', error);
                 alert('Could not make the call. Please try again later.');
             }
+        }
+        
+        // Show error message
+        function showError(message) {
+            profilesContainer.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #666;">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 20px; color: var(--error);"></i>
+                    <h3>Error Loading Profiles</h3>
+                    <p>${message}</p>
+                </div>
+            `;
         }
         
         // Event Listeners
@@ -2079,6 +1796,17 @@ status: "New"
             if (e.target === profileModal) {
                 profileModal.classList.remove('active');
             }
+        });
+        
+        // Refresh profiles
+        refreshBtn.addEventListener('click', async function() {
+            profilesContainer.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #666;">
+                    <div class="spinner"></div>
+                    <p>Refreshing profiles...</p>
+                </div>
+            `;
+            await loadProfiles();
         });
         
         // Initialize the page
