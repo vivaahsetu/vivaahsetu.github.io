@@ -6,6 +6,7 @@
     <title>Vivaah Setu - Essential Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* CSS remains the same as in the original code */
         * {
             margin: 0;
             padding: 0;
@@ -13,7 +14,6 @@
             font-family: 'Segoe UI', Roboto, Oxygen, sans-serif;
         }
         
-        /* Improved logo styles */
         .logo-img {
             height: 60px;
             width: auto;
@@ -1308,6 +1308,49 @@
         const yearToSelect = document.getElementById('yearTo');
         const refreshBtn = document.getElementById('refreshBtn');
         
+        // Header mapping configuration
+        const HEADER_MAP = {
+            // Standardized keys
+            'name': ['Name', 'Full Name', 'Profile Name'],
+            'gender': ['Gender ( M for Male and F or female)', 'Gender', 'Sex'],
+            'contact': ['Contact detail add only one number with prefix +91', 'Contact', 'Phone', 'Mobile'],
+            'dob': ['Date of Birth', 'Birth Date', 'DOB'],
+            'place_of_birth': ['Place of birth', 'Birth Place', 'Location'],
+            'caste': ['Caste', 'Community'],
+            'marital_status': ['Marital Status', 'Marriage Status'],
+            'manglik_status': ['Manglik Status', 'Manglik'],
+            'nationality': ['Nationality', 'Country'],
+            'highest_education': ['Highest Education', 'Education', 'Qualification'],
+            'occupation': ['Occupation', 'Job', 'Profession'],
+            'employment_type': ['Employment type', 'Employment', 'Job Type'],
+            'about_me': ['Something about you', 'About Me', 'Description', 'Bio'],
+            'family_background': ['Family Background', 'Family', 'Family Info'],
+            'approval': ['approval', 'Status', 'Profile Status']
+        };
+        
+        // Function to map header to standard key
+        function mapHeader(header) {
+            const cleanHeader = header.trim().toLowerCase();
+            
+            // Find matching standard key
+            for (const [key, aliases] of Object.entries(HEADER_MAP)) {
+                for (const alias of aliases) {
+                    if (cleanHeader === alias.trim().toLowerCase()) {
+                        return key;
+                    }
+                }
+            }
+            
+            // If no match found, return the original header
+            return header;
+        }
+        
+        // Function to get profile value safely
+        function getProfileValue(profile, key, defaultValue = 'N/A') {
+            const value = profile[key];
+            return value && value.trim() !== '' ? value : defaultValue;
+        }
+        
         // Function to fetch data from Google Sheets
         async function fetchProfiles() {
             try {
@@ -1332,7 +1375,7 @@
                 lines[0] = lines[0].substring(1);
             }
             
-            const headers = lines[0].split(',').map(header => header.trim());
+            const headers = lines[0].split(',').map(header => mapHeader(header.trim()));
             const result = [];
             
             for (let i = 1; i < lines.length; i++) {
@@ -1406,13 +1449,13 @@
                 
                 // Filter out invalid profiles
                 profiles = profiles.filter(profile => {
-                    const name = profile['Name'] || '';
-                    const gender = profile['Gender ( M for Male and F or female)'] || '';
-                    const contact = profile['Contact detail add only one number with prefix +91'] || '';
+                    const name = getProfileValue(profile, 'name');
+                    const gender = getProfileValue(profile, 'gender');
+                    const contact = getProfileValue(profile, 'contact');
                     
-                    return name.trim() !== '' && name.trim() !== 'N/A' && 
-                           gender.trim() !== '' && 
-                           contact.trim() !== '' && contact.trim() !== 'N/A';
+                    return name !== 'N/A' && 
+                           gender !== 'N/A' && 
+                           contact !== 'N/A';
                 });
                 
                 // Set profile count
@@ -1505,11 +1548,11 @@
                 profileCard.className = 'profile-card';
                 
                 // Determine gender-based background
-                const gender = profile['Gender ( M for Male and F or female)'] || '';
+                const gender = getProfileValue(profile, 'gender');
                 const genderClass = gender.toUpperCase() === 'M' ? 'male-bg' : 'female-bg';
                 
                 // Get status information
-                const approvalValue = profile['approval'] || '0';
+                const approvalValue = getProfileValue(profile, 'approval', '0');
                 const { statusText, statusClass } = getStatusInfo(approvalValue);
                 
                 profileCard.innerHTML = `
@@ -1518,20 +1561,20 @@
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="profile-info">
-                        <div class="profile-name">${profile.Name || 'N/A'}</div>
+                        <div class="profile-name">${getProfileValue(profile, 'name')}</div>
                         <div class="profile-detail">
-                            <i class="fas fa-birthday-cake"></i> ${formatDOB(profile['Date of Birth'])}
+                            <i class="fas fa-birthday-cake"></i> ${formatDOB(getProfileValue(profile, 'dob'))}
                         </div>
                         <div class="profile-detail">
-                            <i class="fas fa-map-marker-alt"></i> ${profile['Place of birth'] || 'N/A'}
+                            <i class="fas fa-map-marker-alt"></i> ${getProfileValue(profile, 'place_of_birth')}
                         </div>
                         <div class="profile-detail">
-                            <i class="fas fa-user-tag"></i> ${profile.Caste || 'N/A'}
+                            <i class="fas fa-user-tag"></i> ${getProfileValue(profile, 'caste')}
                         </div>
                         <div class="profile-detail">
-                            <i class="fas fa-heart"></i> ${profile['Marital Status'] || 'N/A'}
+                            <i class="fas fa-heart"></i> ${getProfileValue(profile, 'marital_status')}
                         </div>
-                        <button class="call-btn" onclick="callProfile('${profile['Contact detail add only one number with prefix +91'] || ''}')">
+                        <button class="call-btn" onclick="callProfile('${getProfileValue(profile, 'contact')}')">
                             <i class="fas fa-phone"></i> Call
                         </button>
                     </div>
@@ -1574,7 +1617,7 @@
                 
                 const filtered = profiles.filter(profile => {
                     // Get birth year from DOB
-                    const dob = profile['Date of Birth'];
+                    const dob = getProfileValue(profile, 'dob');
                     let birthYear = 0;
                     if (dob) {
                         try {
@@ -1589,7 +1632,7 @@
                     
                     // Determine gender for search
                     let genderMatch = true;
-                    const gender = (profile['Gender ( M for Male and F or female)'] || '').toUpperCase();
+                    const gender = (getProfileValue(profile, 'gender') || '').toUpperCase();
                     if (searchFor === 'bride') {
                         genderMatch = gender === 'F';
                     } else if (searchFor === 'groom') {
@@ -1597,11 +1640,11 @@
                     }
                     
                     // Map marital status values
-                    let maritalValue = profile['Marital Status'] || '';
+                    let maritalValue = getProfileValue(profile, 'marital_status') || '';
                     maritalValue = maritalValue.toLowerCase();
                     
                     // Check location
-                    const location = (profile['Place of birth'] || '').toLowerCase();
+                    const location = (getProfileValue(profile, 'place_of_birth') || '').toLowerCase();
                     const locationMatch = locationInput === '' || location.includes(locationInput);
                     
                     // Check each filter condition
@@ -1610,10 +1653,10 @@
                            (yearFrom === 'any' || birthYear >= parseInt(yearFrom)) &&
                            (yearTo === 'any' || birthYear <= parseInt(yearTo)) &&
                            (maritalStatus === 'any' || maritalValue === maritalStatus) &&
-                           (manglik === 'any' || (profile['Manglik Status'] || '').toLowerCase() === manglik.toLowerCase()) &&
-                           (employment === 'any' || (profile['Employment type'] || '').toLowerCase() === employment.toLowerCase()) &&
-                           (nationality === 'any' || (profile.Nationality || '').toLowerCase() === nationality.toLowerCase()) &&
-                           (caste === 'any' || (profile.Caste || '').toLowerCase() === caste.toLowerCase());
+                           (manglik === 'any' || (getProfileValue(profile, 'manglik_status') || '').toLowerCase() === manglik.toLowerCase()) &&
+                           (employment === 'any' || (getProfileValue(profile, 'employment_type') || '').toLowerCase() === employment.toLowerCase()) &&
+                           (nationality === 'any' || (getProfileValue(profile, 'nationality') || '').toLowerCase() === nationality.toLowerCase()) &&
+                           (caste === 'any' || (getProfileValue(profile, 'caste') || '').toLowerCase() === caste.toLowerCase());
                 });
                 
                 // Update profile counter
@@ -1630,11 +1673,11 @@
         // Show detailed profile modal
         function showProfileModal(profile) {
             // Determine gender-based background
-            const gender = profile['Gender ( M for Male and F or female)'] || '';
+            const gender = getProfileValue(profile, 'gender');
             const genderClass = gender.toUpperCase() === 'M' ? 'modal-male-bg' : 'modal-female-bg';
             
             // Get status information
-            const approvalValue = profile['approval'] || '0';
+            const approvalValue = getProfileValue(profile, 'approval', '0');
             const { statusText, statusClass } = getStatusInfo(approvalValue);
             
             modalContent.innerHTML = `
@@ -1646,11 +1689,11 @@
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="modal-header-content">
-                        <h2 class="modal-name">${profile.Name || 'N/A'}</h2>
+                        <h2 class="modal-name">${getProfileValue(profile, 'name')}</h2>
                         <div class="profile-badge ${statusClass}" style="display: inline-block; margin-left: 10px;">${statusText}</div>
-                        <p class="modal-tagline">${profile.Occupation || ''} | ${profile['Place of birth'] || ''}</p>
+                        <p class="modal-tagline">${getProfileValue(profile, 'occupation')} | ${getProfileValue(profile, 'place_of_birth')}</p>
                         <div class="modal-contact">
-                            <button class="contact-btn" onclick="callProfile('${profile['Contact detail add only one number with prefix +91'] || ''}')">
+                            <button class="contact-btn" onclick="callProfile('${getProfileValue(profile, 'contact')}')">
                                 <i class="fas fa-phone"></i> Call
                             </button>
                             <button class="contact-btn" onclick="alert('Message feature coming soon!')">
@@ -1665,23 +1708,23 @@
                         <div class="modal-details">
                             <div class="modal-detail">
                                 <div class="detail-label">Date of Birth:</div>
-                                <div class="detail-value">${formatDOB(profile['Date of Birth'])}</div>
+                                <div class="detail-value">${formatDOB(getProfileValue(profile, 'dob'))}</div>
                             </div>
                             <div class="modal-detail">
                                 <div class="detail-label">Marital Status:</div>
-                                <div class="detail-value">${profile['Marital Status'] || 'N/A'}</div>
+                                <div class="detail-value">${getProfileValue(profile, 'marital_status')}</div>
                             </div>
                             <div class="modal-detail">
                                 <div class="detail-label">Manglik:</div>
-                                <div class="detail-value">${profile['Manglik Status'] || 'N/A'}</div>
+                                <div class="detail-value">${getProfileValue(profile, 'manglik_status')}</div>
                             </div>
                             <div class="modal-detail">
                                 <div class="detail-label">Nationality:</div>
-                                <div class="detail-value">${profile.Nationality || 'N/A'}</div>
+                                <div class="detail-value">${getProfileValue(profile, 'nationality')}</div>
                             </div>
                             <div class="modal-detail">
                                 <div class="detail-label">Caste:</div>
-                                <div class="detail-value">${profile.Caste || 'N/A'}</div>
+                                <div class="detail-value">${getProfileValue(profile, 'caste')}</div>
                             </div>
                         </div>
                     </div>
@@ -1691,27 +1734,27 @@
                         <div class="modal-details">
                             <div class="modal-detail">
                                 <div class="detail-label">Education:</div>
-                                <div class="detail-value">${profile['Highest Education'] || 'N/A'}</div>
+                                <div class="detail-value">${getProfileValue(profile, 'highest_education')}</div>
                             </div>
                             <div class="modal-detail">
                                 <div class="detail-label">Occupation:</div>
-                                <div class="detail-value">${profile.Occupation || 'N/A'}</div>
+                                <div class="detail-value">${getProfileValue(profile, 'occupation')}</div>
                             </div>
                             <div class="modal-detail">
                                 <div class="detail-label">Employment:</div>
-                                <div class="detail-value">${profile['Employment type'] || 'N/A'}</div>
+                                <div class="detail-value">${getProfileValue(profile, 'employment_type')}</div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="modal-section">
                         <h3>About Me</h3>
-                        <p>${profile['Something about you'] || 'No information provided'}</p>
+                        <p>${getProfileValue(profile, 'about_me', 'No information provided')}</p>
                     </div>
                     
                     <div class="modal-section">
                         <h3>Family Background</h3>
-                        <p>${profile['Family Background'] || 'No information provided'}</p>
+                        <p>${getProfileValue(profile, 'family_background', 'No information provided')}</p>
                     </div>
                 </div>
             `;
@@ -1728,7 +1771,7 @@
         // Call profile function
         function callProfile(phone) {
             try {
-                if (!phone || phone.trim() === '') {
+                if (!phone || phone.trim() === '' || phone === 'N/A') {
                     throw new Error('Phone number is missing');
                 }
                 
